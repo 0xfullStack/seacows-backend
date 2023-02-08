@@ -1,0 +1,17 @@
+{
+  "name": "seacows-amm-v1_5",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AMM v1.5 monorepo",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "devDependencies": {
+    "@types/node": "^18.13.0",
+    "typescript": "^4.9.5"
+  }
+}

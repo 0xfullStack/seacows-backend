@@ -10,7 +10,7 @@ import {
   SuccessResponse,
 } from "tsoa";
 import { User } from "./user";
-import { UsersService, UserCreationParams } from "./usersService";
+import { UsersService, UserCreationParams } from "./users.service";
 
 @Route("users")
 export class UsersController extends Controller {
@@ -22,7 +22,7 @@ export class UsersController extends Controller {
     return new UsersService().get(userId, name);
   }
 
-  @SuccessResponse("201", "Created") // Custom success response
+  @SuccessResponse("201", "Created") // Custom succeess response
   @Post()
   public async createUser(
     @Body() requestBody: UserCreationParams

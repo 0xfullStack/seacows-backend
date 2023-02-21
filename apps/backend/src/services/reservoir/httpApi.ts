@@ -36,7 +36,7 @@ export class ReservoirHttpApi {
   }
 
   /**
-   * Fetch a collection's tweets by Reservoir handle up to a last known tweet id.
+   * Fetch tokens for a given collection through paginated API calls. Calls are done recursively
    */
   async requestMaxTokens(collectionId: string, continuation?: string): Promise<ReservoirToken[]> {
     const { continuation: continueToken, tokens } = await this.requestCollectionTokens(collectionId, "tokenId", continuation);

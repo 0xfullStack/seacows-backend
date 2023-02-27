@@ -79,7 +79,8 @@ model Collection {
   updatedAt     DateTime?      @map("updated_at")
 
   // Relationship
-  wallet         Wallet[]
+  owner Wallet @relation(fields: [ownerWalletId], references: [id])
+
   token          Token[]
   tokenAttribute TokenAttribute[]
   owners         TokenOwner[]

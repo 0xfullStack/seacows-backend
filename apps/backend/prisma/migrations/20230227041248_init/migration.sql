@@ -104,12 +104,6 @@ CREATE TABLE "token_attribute" (
     CONSTRAINT "token_attribute_pkey" PRIMARY KEY ("token_id","attribute_id")
 );
 
--- CreateTable
-CREATE TABLE "_CollectionToWallet" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "network_name_key" ON "network"("name");
 
@@ -140,14 +134,11 @@ CREATE INDEX "attribute_trait_type_idx" ON "attribute"("trait_type");
 -- CreateIndex
 CREATE UNIQUE INDEX "attribute_trait_type_value_key" ON "attribute"("trait_type", "value");
 
--- CreateIndex
-CREATE UNIQUE INDEX "_CollectionToWallet_AB_unique" ON "_CollectionToWallet"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_CollectionToWallet_B_index" ON "_CollectionToWallet"("B");
-
 -- AddForeignKey
 ALTER TABLE "network" ADD CONSTRAINT "network_currency_address_fkey" FOREIGN KEY ("currency_address") REFERENCES "currency"("address") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "collection" ADD CONSTRAINT "collection_owner_wallet_id_fkey" FOREIGN KEY ("owner_wallet_id") REFERENCES "wallet"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "token" ADD CONSTRAINT "token_collection_id_fkey" FOREIGN KEY ("collection_id") REFERENCES "collection"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -169,9 +160,3 @@ ALTER TABLE "token_attribute" ADD CONSTRAINT "token_attribute_collection_id_fkey
 
 -- AddForeignKey
 ALTER TABLE "token_attribute" ADD CONSTRAINT "token_attribute_token_id_fkey" FOREIGN KEY ("token_id") REFERENCES "token"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_CollectionToWallet" ADD CONSTRAINT "_CollectionToWallet_A_fkey" FOREIGN KEY ("A") REFERENCES "collection"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_CollectionToWallet" ADD CONSTRAINT "_CollectionToWallet_B_fkey" FOREIGN KEY ("B") REFERENCES "wallet"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -1,5 +1,5 @@
 {
-  "name": "seacows-amm-v1_5",
+  "name": "@yolominds/seacows-backend",
   "version": "1.0.0",
   "private": true,
   "description": "AMM v1.5 monorepo",

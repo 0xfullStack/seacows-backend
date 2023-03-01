@@ -1,14 +1,16 @@
 import { ZeroAddress } from "ethers";
-import { Context } from "../../app";
+import prisma from "src/utils/prisma";
+import external from "src/services";
+// import { Context } from "../../app";
 
 export class CollectionService {
-  public async getCollection(ctx: Context, collectionAddress: string) {
-    const { db, external } = ctx;
+  public async getCollection(collectionAddress: string) {
+    // const { db, external } = ctx;
 
-    const collection = await db.read.collection.findUnique({
+    const collection = await prisma.read.collection.findUnique({
       where: {
-        address: collectionAddress
-      }
+        address: collectionAddress,
+      },
     });
 
     if (collection) {
@@ -18,10 +20,10 @@ export class CollectionService {
     const { collections } = await external.reservoirApi.requestCollections(collectionAddress);
     const rCollection = collections[0];
 
-    const created = await db.write.collection.create({
+    const created = await prisma.write.collection.create({
       data: {
         address: collectionAddress,
-        isVerified: rCollection.openseaVerificationStatus === 'verified',
+        isVerified: rCollection.openseaVerificationStatus === "verified",
         osSlug: rCollection.slug,
         name: rCollection.name,
         description: rCollection.description,
@@ -29,17 +31,16 @@ export class CollectionService {
         banner: rCollection.banner,
         websiteLink: rCollection.externalUrl,
         twitterLink: rCollection.twitterUsername,
-        type: 'ERC721',
+        type: "ERC721",
         owner: {
           create: {
-            address: ZeroAddress
-          }
+            address: ZeroAddress,
+          },
         },
-        createdAt: rCollection.createdAt
-      }
-    })
-    
+        createdAt: rCollection.createdAt,
+      },
+    });
+
     return created;
   }
 }
-

@@ -1,5 +1,5 @@
 import { Collection } from "@prisma/client";
-import { Body, Controller, Example, Request, Get, Path, Post, Query, Route, SuccessResponse } from "../../../../../node_modules/tsoa";
+import { Body, Controller, Example, Request, Get, Path, Post, Query, Route, SuccessResponse } from "tsoa";
 import { EthAddress } from "../../schemas/common";
 import CollectionService from "./collection.service";
 

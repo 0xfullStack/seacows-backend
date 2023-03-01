@@ -2,8 +2,8 @@ import express, { json, urlencoded, NextFunction, Request, Response } from "expr
 import swaggerUi from "swagger-ui-express";
 import { ValidateError } from "tsoa";
 import { ZodError } from "zod";
-import { RegisterRoutes } from "tsoa/routes";
-import SwaggerSpec from "tsoa/swagger.json";
+import { RegisterRoutes } from "openapi/routes";
+import SwaggerSpec from "openapi/swagger.json";
 import logger from "./utils/logger";
 
 export function initApp() {

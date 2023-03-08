@@ -1,6 +1,7 @@
 import type { Prisma } from "@prisma/client";
 import { PrismaClient } from "@prisma/client";
-import logger from "../utils/logger";
+import logger from "src/utils/logger";
+import env from "src/env";
 
 export interface PrismaConfig {
   read: PrismaClient;
@@ -15,7 +16,6 @@ export const prismaLogLevels: Prisma.LogDefinition[] = [
   { level: "error", emit: "event" },
   { level: "query", emit: "event" },
 ];
-
 
 const createPrismaWithLogger = (url: string) => {
   const client = new PrismaClient<Prisma.PrismaClientOptions, Prisma.LogLevel>({
@@ -33,9 +33,9 @@ const createPrismaWithLogger = (url: string) => {
   });
 
   return client;
-}
+};
 
-const getPrisma = (readUrl?: string, writeUrl?: string): PrismaConfig => {
+export const getPrisma = (readUrl?: string, writeUrl?: string): PrismaConfig => {
   if (!readUrl) {
     throw new Error("DATABASE_URL is required.");
   }
@@ -59,4 +59,4 @@ const getPrisma = (readUrl?: string, writeUrl?: string): PrismaConfig => {
   };
 };
 
-export default getPrisma;
+export default getPrisma(env.DATABASE_URL, env.DATABASE_URL);

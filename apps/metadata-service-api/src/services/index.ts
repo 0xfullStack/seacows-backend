@@ -1,3 +1,4 @@
+import env from "src/env";
 import { ReservoirHttpApi } from "./reservoir/httpApi";
 import { ReservoirHttpClientManager } from "./reservoir/httpClientManager";
 
@@ -6,10 +7,10 @@ export interface ExternalServices {
   // looksrareApi: LooksRareHttpApi;
 }
 
-export class ExternalServices implements ExternalServices{
+export class ExternalServices implements ExternalServices {
   private constructor(reservoirApiKeys: string[]) {
     const reservoirHttpClient = new ReservoirHttpClientManager(reservoirApiKeys);
-    
+
     this.reservoirApi = new ReservoirHttpApi(reservoirHttpClient);
   }
 
@@ -17,3 +18,5 @@ export class ExternalServices implements ExternalServices{
     return new ExternalServices(reservoirApiKeys);
   }
 }
+
+export default ExternalServices.apply(env.RESERVIOR_API_KEYS);

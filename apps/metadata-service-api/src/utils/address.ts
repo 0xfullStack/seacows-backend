@@ -1,8 +1,8 @@
-import { getAddress } from "ethers";
+import { utils } from "ethers";
 
 export const checksumAddress = (address: string) => {
   try {
-    return getAddress(address.toLowerCase());
+    return utils.getAddress(address.toLowerCase());
   } catch {}
 
   return address;

@@ -11,14 +11,20 @@ export const DAYS_3_MS = 3 * 24 * HOUR_MS;
 
 /**
  * Setup and connect to queue service with rate limits as pre-defined
- * by twitter rate-limit-documentation.
+ * by Reservoir rate-limit-documentation.
  */
 export const ReservoirConfig = {
   BASE_API_URL: "https://api.reservoir.tools/",
   DEFAULT_REQ_RATE_LIMIT_PER_CLIENT: 60,
   RATE_LIMIT_WINDOW_MS: 1 * 60 * 1000,
-  MAX_TWEETS_PER_REQUEST: 100,
 };
+
+export const LooksRareConfig = {
+  BASE_API_URL: "https://api.looksrare.org/",
+  DEFAULT_REQ_RATE_LIMIT_PER_CLIENT: 60,
+  RATE_LIMIT_WINDOW_MS: 1 * 60 * 1000,
+};
+
 
 /**
  * Shared HTTP & HTTPs agents for connection pooling.

@@ -1,29 +1,29 @@
 import type { OptionsOfJSONResponseBody } from "got";
-import type { ReservoirHttpClient } from "./shared";
+import type { LooksRareHttpClient } from "./shared";
 import { shuffle } from "lodash";
 import logger from "../../utils/logger";
-import { ReservoirHttpClientWithRateLimitRetries } from "./httpRateLimitClient";
+import { LooksRareHttpClientWithRateLimitRetries } from "./httpRateLimitClient";
 
 /**
- * Manages a set of Reservoir Http Clients to distribute requests across multiple
+ * Manages a set of LooksRare Http Clients to distribute requests across multiple
  * api-keys to increase the overall request limits of the service and throughput.
  */
-export class ReservoirHttpClientManager {
-  private readonly logger = logger.childLogger("ReservoirHttpClientManager");
-  readonly httpClientId = "ReservoirHttpClientManager";
+export class LooksRareHttpClientManager {
+  private readonly logger = logger.childLogger("LooksRareHttpClientManager");
+  readonly httpClientId = "LooksRareHttpClientManager";
 
-  private httpClients: Map<string, ReservoirHttpClient> = new Map();
+  private httpClients: Map<string, LooksRareHttpClient> = new Map();
 
   constructor(apiKeys: string[]) {
     for (const key of shuffle(apiKeys)) {
-      const client = new ReservoirHttpClientWithRateLimitRetries({ defaultHeaders: { 'x-api-key': key } });
+      const client = new LooksRareHttpClientWithRateLimitRetries({ defaultHeaders: { 'x-api-key': key } });
       this.httpClients.set(client.httpClientId, client);
     }
   }
 
   // Compare the remaining rate-limit available on a http client to order the clients
   // by most rate-limit remaining descending.
-  private compare(client1: ReservoirHttpClient, client2: ReservoirHttpClient): number {
+  private compare(client1: LooksRareHttpClient, client2: LooksRareHttpClient): number {
     const val1 = client1?.remaining ?? 0;
     const val2 = client2?.remaining ?? 0;
 
@@ -37,7 +37,7 @@ export class ReservoirHttpClientManager {
   // remaining rate limit then it will cycle through those clients one request at a time
   // evenly distributing the clients.
   private sortMap() {
-    const sortedMap: Array<readonly [string, ReservoirHttpClient]> = [...this.httpClients.values()]
+    const sortedMap: Array<readonly [string, LooksRareHttpClient]> = [...this.httpClients.values()]
       .sort((a, b) => this.compare(a, b))
       .map((x) => [x.httpClientId, x] as const);
 
@@ -48,7 +48,7 @@ export class ReservoirHttpClientManager {
     });
   }
 
-  private getHttpClient(): ReservoirHttpClient {
+  private getHttpClient(): LooksRareHttpClient {
     const clients = [...this.httpClients.values()];
     return clients[0];
   }

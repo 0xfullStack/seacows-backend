@@ -1,11 +1,10 @@
-import { ZeroAddress } from "ethers";
+import { constants } from "ethers";
+import { Prisma } from "@prisma/client";
 import prisma from "src/utils/prisma";
 import external from "src/services";
-// import { Context } from "../../app";
+import { ReservoirTokenResponse } from "src/schemas/reservoir";
 
 const getCollection = async (collectionAddress: string) => {
-  // const { db, external } = ctx;
-
   const collection = await prisma.read.collection.findUnique({
     where: {
       address: collectionAddress,
@@ -16,7 +15,9 @@ const getCollection = async (collectionAddress: string) => {
     return collection;
   }
 
-  const { collections } = await external.reservoirApi.requestCollections(collectionAddress);
+  const { collections } = await external.reservoirApi.requestCollections(
+    collectionAddress
+  );
   const rCollection = collections[0];
 
   const created = await prisma.write.collection.create({
@@ -33,7 +34,7 @@ const getCollection = async (collectionAddress: string) => {
       type: "ERC721",
       owner: {
         create: {
-          address: ZeroAddress,
+          address: constants.AddressZero,
         },
       },
       createdAt: rCollection.createdAt,
@@ -43,6 +44,40 @@ const getCollection = async (collectionAddress: string) => {
   return created;
 };
 
+const saveReservoirCollectionTokens = (
+  collectionId: number,
+  tokens: ReservoirTokenResponse["tokens"]
+) => {
+  return prisma.write.token.createMany({
+    data: tokens.map(({ token }) => ({
+      tokenId: new Prisma.Decimal(token.tokenId),
+      collectionId,
+      name: token.name || `#${token.tokenId}`,
+      image: token.image,
+      flagId: token.isFlagged ? 1 : 0,
+      description: token.description,
+    })),
+  });
+};
+
+const getCollectionTokens = async (collectionAddress: string) => {
+  const collection = await getCollection(collectionAddress);
+
+  const tokens = await external.reservoirApi.requestMaxTokens(
+    collectionAddress,
+    undefined,
+    (tokens) => saveReservoirCollectionTokens(collection.id, tokens)
+  );
+
+  return tokens;
+};
+
+const searchCollections = async (name: string) => {
+  return external.reservoirApi.searchCollections(name);
+};
+
 export default {
   getCollection,
+  searchCollections,
+  getCollectionTokens,
 };

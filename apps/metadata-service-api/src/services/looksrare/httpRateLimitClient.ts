@@ -4,13 +4,13 @@ import { z } from "zod";
 import got from "got";
 import logger from "../../utils/logger";
 import { HttpClientWithRetries } from "../httpClient";
-import { SharedHttpAgents, ReservoirConfig } from "../../utils/constants";
+import { SharedHttpAgents, LooksRareConfig } from "../../utils/constants";
 
-export class ReservoirHttpClientWithRateLimitRetries extends HttpClientWithRetries {
+export class LooksRareHttpClientWithRateLimitRetries extends HttpClientWithRetries {
   constructor(protected readonly config?: Partial<HttpClientConfig>) {
     super(config);
 
-    this.config = Object.assign({ baseUrl: ReservoirConfig.BASE_API_URL, defaultHeaders: {} }, config);
+    this.config = Object.assign({ baseUrl: LooksRareConfig.BASE_API_URL, defaultHeaders: {} }, config);
 
     this.gotInstance = this.gotInstance.extend({
       // Base URL of the API.
@@ -28,10 +28,10 @@ export class ReservoirHttpClientWithRateLimitRetries extends HttpClientWithRetri
 
   // Initialize clients assuming they have 20% of their requests exhausted.
   // This will be updated to an accurate value once the first request is made.
-  public resetAt: number = Date.now() + ReservoirConfig.RATE_LIMIT_WINDOW_MS;
-  public remaining: number = ReservoirConfig.DEFAULT_REQ_RATE_LIMIT_PER_CLIENT * 0.8;
+  public resetAt: number = Date.now() + LooksRareConfig.RATE_LIMIT_WINDOW_MS;
+  public remaining: number = LooksRareConfig.DEFAULT_REQ_RATE_LIMIT_PER_CLIENT * 0.8;
 
-  protected readonly logger = logger.childLogger("ReservoirHttpClientWithRateLimitRetries", {
+  protected readonly logger = logger.childLogger("LooksRareHttpClientWithRateLimitRetries", {
     client: this.httpClientId,
   });
 
@@ -67,11 +67,9 @@ export class ReservoirHttpClientWithRateLimitRetries extends HttpClientWithRetri
     hooks: {
       afterResponse: [
         (response: Response<unknown>): Response<unknown> => {
-          const limit = Number(response.headers["x-ratelimit-limit"]);
-          const remaining = Number(response.headers["x-ratelimit-remaining"]);
-
-          // Example: Mon Mar 20 2023 12:10:02 GMT+0000 (Coordinated Universal Time)
-          const resetAt = new Date(response.headers["x-ratelimit-reset"] as string).getTime();
+          const limit = Number(response.headers["ratelimit-limit"]);
+          const remaining = Number(response.headers["ratelimit-remaining"]);
+          const resetAt = Number(response.headers["ratelimit-reset"]) * 1000;
 
           this.remaining = remaining;
           this.resetAt = resetAt;

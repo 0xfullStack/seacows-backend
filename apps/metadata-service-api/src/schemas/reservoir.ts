@@ -9,9 +9,9 @@ export const ReservoirCollection = z.object({
   createdAt: z.string().datetime(),
   image: z.string().url(),
   banner: z.string().url(),
-  discordUrl: z.string().url().optional(),
-  externalUrl: z.string().url().optional(),
-  twitterUsername: z.string().optional(),
+  discordUrl: z.string().url().optional().nullable(),
+  externalUrl: z.string().url().optional().nullable(),
+  twitterUsername: z.string().optional().nullable(),
   openseaVerificationStatus: z.string(), // 'verified', 'disabled_top_trending'
   description: z.string(),
   tokenCount: z.coerce.number(),
@@ -55,6 +55,6 @@ export const ReservoirTokenResponse = z.object({
       market: z.object({}),
     })
   ),
-  continuation: z.string(),
+  continuation: z.string().nullable(),
 });
 export type ReservoirTokenResponse = z.infer<typeof ReservoirTokenResponse>;

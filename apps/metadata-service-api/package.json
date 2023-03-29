@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "dotenv -e ../../.env -c -- concurrently \"nodemon\" \"nodemon -x tsoa -c tsoa.json spec-and-routes\"",
-    "build": "yarn build:spec && yarn build:doc && tsc",
+    "build": "yarn build:spec && yarn build:doc && tsc && tsc-alias",
     "build:spec": "tsoa -c tsoa.json spec-and-routes",
     "build:doc": "openapi --input ./openapi/swagger.json --output ./openapi/api --client axios --name SeacowsMetadataClient",
     "start": "node build/src/server.js",
@@ -46,6 +46,7 @@
     "openapi-typescript-codegen": "^0.23.0",
     "prisma": "^4.10.1",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.4",
     "tsconfig-paths": "^3.14.2"
   },
   "prisma": {

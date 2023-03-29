@@ -22,8 +22,8 @@ RUN yarn workspace @yolominds/metadata-service-api run build
 FROM node:18-alpine
 
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/yarn*.json ./
+# COPY --from=builder /app/yarn*.json ./
 COPY --from=builder /app/apps/metadata-service-api/build ./build
 
 EXPOSE 3000
-CMD [ "yarn", "run", "start" ]
+CMD [ "node", "build/src/server.js" ]

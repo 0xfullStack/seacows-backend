@@ -1,6 +1,6 @@
 {
   "name": "@yolominds/metadata-service-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "engines": {
@@ -56,5 +56,7 @@
     "seed": "ts-node prisma/seed",
     "schema": "./prisma/schema.prisma"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }

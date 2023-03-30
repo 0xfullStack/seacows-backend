@@ -14,6 +14,20 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
+    - name: seacows-bot-install token
+      id: seacows-bot
+      uses: getsentry/action-github-app-token@v1
+      with:
+        app_id: ${{ secrets.SEACOWS_BOT_APP_ID }}
+        private_key: ${{ secrets.SEACOWS_BOT_PRIVATE_KEY }}
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        registry-url: 'https://npm.pkg.github.com'
+        # Defaults to the user or organization that owns the workflow file
+        scope: '@yolominds'
+
     - name: Checkout code from repo
       uses: actions/checkout@master
     - name: Configure AWS credentials
@@ -35,15 +49,34 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . --build-arg github_token=${{ secrets.READ_WRITE_GITHUB_PACKAGES_SECRET }}
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        registry-url: 'https://npm.pkg.github.com'
+        # Defaults to the user or organization that owns the workflow file
+        scope: '@yolominds'
+
+    - name: Prepare and publish package
+      run: |
+        yarn workspace @yolominds/metadata-service-api install
+        yarn workspace @yolominds/metadata-service-api run build:package
+        git config --global user.email "bot@seacows.io"
+        git config --global user.name "Seacows Bot"
+        yarn workspace @yolominds/metadata-service-api release
+
+    - run: |
+        yarn publish apps/metadata-service-api
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push updated version to main
+      uses: ad-m/github-push-action@master
+      with:
+        branch: dev
+        tags: true
+        github_token: ${{ steps.seacows-bot.outputs.token }}
     
     # Update kubeconfig for deployment
-    - name: seacows-bot-install token
-      id: seacows-bot
-      uses: getsentry/action-github-app-token@v1
-      with:
-        app_id: ${{ secrets.SEACOWS_BOT_APP_ID }}
-        private_key: ${{ secrets.SEACOWS_BOT_PRIVATE_KEY }}
-
     - uses: actions/checkout@master
       with:
         repository: yolominds/ops-kubeconfig

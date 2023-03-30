@@ -1,25 +1,13 @@
 import { Collection } from "@prisma/client";
-import {
-  Body,
-  Controller,
-  Example,
-  Request,
-  Get,
-  Path,
-  Post,
-  Query,
-  Route,
-  SuccessResponse,
-  Queries,
-} from "tsoa";
+import { Body, Controller, Example, Request, Get, Path, Post, Query, Route, SuccessResponse, Queries } from "tsoa";
 import { EthAddress } from "../../schemas/common";
 import { SearchCollectionName } from "./collection.schema";
 import CollectionService from "./collection.service";
 
 @Route("collections")
 export class CollectionController extends Controller {
-  @Get("byName/{name}")
-  public async searchCollectionByName(@Path() name: string) {
+  @Get("")
+  public async searchCollectionByName(@Query() name: string) {
     const queryName = SearchCollectionName.parse(name);
 
     return await CollectionService.searchCollections(queryName);

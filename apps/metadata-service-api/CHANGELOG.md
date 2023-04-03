@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.3.0 (2023-04-03)
+
+
+### Features
+
+* GitHub workflows, add prettier ([#16](https://github.com/yolominds/seacows-backend/issues/16)) ([f5d92ef](https://github.com/yolominds/seacows-backend/commit/f5d92efc44b8662cddec53e1df49ae8d1337bdff))
+
 ## 1.2.0 (2023-04-03)
 
 

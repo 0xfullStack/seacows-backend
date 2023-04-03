@@ -13,9 +13,7 @@ export const AppEnv = z
     RESERVIOR_API_KEYS: getKeysFromProcessEnv("RESERVOIR_API_KEY"),
     LOOKSRARE_API_KEYS: getKeysFromProcessEnv("LOOKSRARE_API_KEY"),
   }))
-  .refine(
-    (x) => x.RESERVIOR_API_KEYS.length >= 1 && x.LOOKSRARE_API_KEYS.length >= 1
-  );
+  .refine((x) => x.RESERVIOR_API_KEYS.length >= 1 && x.LOOKSRARE_API_KEYS.length >= 1);
 
 export type AppEnv = z.infer<typeof AppEnv>;
 

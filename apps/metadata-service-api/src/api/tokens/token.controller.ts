@@ -1,16 +1,4 @@
-import {
-  Body,
-  Controller,
-  Example,
-  Request,
-  Get,
-  Path,
-  Post,
-  Query,
-  Route,
-  SuccessResponse,
-  Queries,
-} from "tsoa";
+import { Body, Controller, Example, Request, Get, Path, Post, Query, Route, SuccessResponse, Queries } from "tsoa";
 import { QueryTokensArgs } from "./token.schema";
 import TokenService from "./token.service";
 

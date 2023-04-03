@@ -6,4 +6,4 @@ export const checksumAddress = (address: string) => {
   } catch {}
 
   return address;
-}
+};

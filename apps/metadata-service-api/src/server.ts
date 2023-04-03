@@ -13,9 +13,8 @@ async function main() {
 
   const app = initApp();
 
-  app.listen(port, () =>
-    logger.log(`Example app listening at http://localhost:${port}`)
-  );
+  // test
+  app.listen(port, () => logger.log(`Example app listening at http://localhost:${port}`));
 
   // Reservoir APIs
   // const collections = await external.reservoirApi.requestMultipleCollections("30DayVolume", 1);

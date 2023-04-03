@@ -28,7 +28,7 @@ export type LooksRareCollection = z.infer<typeof LooksRareCollection>;
 export const LooksRareCollectionResponse = z.object({
   success: z.boolean(),
   message: z.string().nullable(),
-  data: LooksRareCollection.nullable()
+  data: LooksRareCollection.nullable(),
 });
 export type LooksRareCollectionResponse = z.infer<typeof LooksRareCollectionResponse>;
 
@@ -38,7 +38,7 @@ export const LooksRareTokenAttribute = z.object({
   displayType: z.string(),
   count: z.string(),
   floorOrder: z.any().nullable(),
-})
+});
 
 // https://looksrare.dev/reference/getcollectiontoken
 export const LooksRareToken = z.object({
@@ -50,9 +50,8 @@ export const LooksRareToken = z.object({
   description: z.string(),
   isVerified: z.boolean(),
   isAnimated: z.boolean(),
-  attributes: z.array(LooksRareTokenAttribute)
+  attributes: z.array(LooksRareTokenAttribute),
 });
-
 
 export type LooksRareToken = z.infer<typeof LooksRareToken>;
 export type LooksRareTokenAttribute = z.infer<typeof LooksRareTokenAttribute>;
@@ -60,6 +59,6 @@ export type LooksRareTokenAttribute = z.infer<typeof LooksRareTokenAttribute>;
 export const LooksRareTokenResponse = z.object({
   success: z.boolean(),
   message: z.string().nullable(),
-  data: LooksRareToken.nullable()
+  data: LooksRareToken.nullable(),
 });
 export type LooksRareTokenResponse = z.infer<typeof LooksRareTokenResponse>;

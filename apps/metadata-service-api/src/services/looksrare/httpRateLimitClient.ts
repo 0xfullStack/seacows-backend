@@ -23,7 +23,7 @@ export class LooksRareHttpClientWithRateLimitRetries extends HttpClientWithRetri
   }
 
   // For simple internal identification of http clients assign a hashed version of the apiKey as the client id
-  private readonly key = z.string().parse(this.config?.defaultHeaders?.['x-api-key'] || 'default-api-key');
+  private readonly key = z.string().parse(this.config?.defaultHeaders?.["x-api-key"] || "default-api-key");
   public readonly httpClientId: string = `****${this.key.slice(this.key.length - 5, this.key.length)}`;
 
   // Initialize clients assuming they have 20% of their requests exhausted.
@@ -76,8 +76,8 @@ export class LooksRareHttpClientWithRateLimitRetries extends HttpClientWithRetri
 
           if (isNaN(limit) || isNaN(remaining)) {
             this.logger.error(`Rate limit format doesn't match for LooksRare API`, {
-              headers: response.headers
-            })
+              headers: response.headers,
+            });
           }
 
           if (response.statusCode === 429) {

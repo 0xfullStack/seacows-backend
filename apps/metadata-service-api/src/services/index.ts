@@ -13,27 +13,17 @@ export interface ExternalServices {
 
 export class ExternalServices implements ExternalServices {
   private constructor(reservoirApiKeys: string[], looksrareApiKeys: string[]) {
-    const reservoirHttpClient = new ReservoirHttpClientManager(
-      reservoirApiKeys
-    );
-    const looksRareHttpClient = new LooksRareHttpClientManager(
-      looksrareApiKeys
-    );
+    const reservoirHttpClient = new ReservoirHttpClientManager(reservoirApiKeys);
+    const looksRareHttpClient = new LooksRareHttpClientManager(looksrareApiKeys);
 
     this.reservoirApi = new ReservoirHttpApi(reservoirHttpClient);
     this.looksrareApi = new LooksRareHttpApi(looksRareHttpClient);
     this.moralisNftApi = Moralis.EvmApi.nft;
   }
 
-  static apply(
-    reservoirApiKeys: string[],
-    looksrareApiKeys: string[]
-  ): ExternalServices {
+  static apply(reservoirApiKeys: string[], looksrareApiKeys: string[]): ExternalServices {
     return new ExternalServices(reservoirApiKeys, looksrareApiKeys);
   }
 }
 
-export default ExternalServices.apply(
-  env.RESERVIOR_API_KEYS,
-  env.LOOKSRARE_API_KEYS
-);
+export default ExternalServices.apply(env.RESERVIOR_API_KEYS, env.LOOKSRARE_API_KEYS);

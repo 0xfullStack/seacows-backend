@@ -25,7 +25,6 @@ export const LooksRareConfig = {
   RATE_LIMIT_WINDOW_MS: 1 * 60 * 1000,
 };
 
-
 /**
  * Shared HTTP & HTTPs agents for connection pooling.
  */

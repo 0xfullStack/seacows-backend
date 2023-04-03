@@ -16,7 +16,7 @@ export class ReservoirHttpClientManager {
 
   constructor(apiKeys: string[]) {
     for (const key of shuffle(apiKeys)) {
-      const client = new ReservoirHttpClientWithRateLimitRetries({ defaultHeaders: { 'x-api-key': key } });
+      const client = new ReservoirHttpClientWithRateLimitRetries({ defaultHeaders: { "x-api-key": key } });
       this.httpClients.set(client.httpClientId, client);
     }
   }
@@ -60,8 +60,8 @@ export class ReservoirHttpClientManager {
   async makeRequest<T>(path: string, reqOptions?: OptionsOfJSONResponseBody): Promise<T> {
     try {
       const client = this.getHttpClient();
-      this.logger.log('clientId: ' + client.httpClientId);
-      
+      this.logger.log("clientId: " + client.httpClientId);
+
       const response = await client.makeRequest<T>(path, reqOptions);
 
       this.sortMap();

@@ -11,10 +11,10 @@ export class LooksRareHttpApi {
   async requestCollection(collection: string): Promise<LooksRareCollectionResponse> {
     const data = await this.LooksRareHttpClient.makeRequest("collections", {
       searchParams: {
-        address: collection
-      }
+        address: collection,
+      },
     });
-    
+
     return LooksRareCollectionResponse.parse(data);
   }
 
@@ -22,10 +22,10 @@ export class LooksRareHttpApi {
     const data = await this.LooksRareHttpClient.makeRequest("tokens", {
       searchParams: {
         collection,
-        tokenId
+        tokenId,
       },
     });
-    
+
     return LooksRareTokenResponse.parse(data);
   }
 }

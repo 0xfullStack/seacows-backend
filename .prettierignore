@@ -1,0 +1,3 @@
+node_modules
+apps/metadata-service-api/build
+apps/metadata-service-api/openapi

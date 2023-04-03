@@ -15,9 +15,7 @@ const getCollection = async (collectionAddress: string) => {
     return collection;
   }
 
-  const { collections } = await external.reservoirApi.requestCollections(
-    collectionAddress
-  );
+  const { collections } = await external.reservoirApi.requestCollections(collectionAddress);
   const rCollection = collections[0];
 
   const created = await prisma.write.collection.create({
@@ -44,10 +42,7 @@ const getCollection = async (collectionAddress: string) => {
   return created;
 };
 
-const saveReservoirCollectionTokens = (
-  collectionId: number,
-  tokens: ReservoirTokenResponse["tokens"]
-) => {
+const saveReservoirCollectionTokens = (collectionId: number, tokens: ReservoirTokenResponse["tokens"]) => {
   return prisma.write.token.createMany({
     data: tokens.map(({ token }) => ({
       tokenId: new Prisma.Decimal(token.tokenId),
@@ -63,10 +58,8 @@ const saveReservoirCollectionTokens = (
 const getCollectionTokens = async (collectionAddress: string) => {
   const collection = await getCollection(collectionAddress);
 
-  const tokens = await external.reservoirApi.requestMaxTokens(
-    collectionAddress,
-    undefined,
-    (tokens) => saveReservoirCollectionTokens(collection.id, tokens)
+  const tokens = await external.reservoirApi.requestMaxTokens(collectionAddress, undefined, (tokens) =>
+    saveReservoirCollectionTokens(collection.id, tokens)
   );
 
   return tokens;

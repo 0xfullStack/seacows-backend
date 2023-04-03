@@ -1,10 +1,4 @@
-import express, {
-  json,
-  urlencoded,
-  NextFunction,
-  Request,
-  Response,
-} from "express";
+import express, { json, urlencoded, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import swaggerUi from "swagger-ui-express";

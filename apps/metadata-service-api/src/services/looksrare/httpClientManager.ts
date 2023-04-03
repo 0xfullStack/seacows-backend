@@ -16,7 +16,7 @@ export class LooksRareHttpClientManager {
 
   constructor(apiKeys: string[]) {
     for (const key of shuffle(apiKeys)) {
-      const client = new LooksRareHttpClientWithRateLimitRetries({ defaultHeaders: { 'x-api-key': key } });
+      const client = new LooksRareHttpClientWithRateLimitRetries({ defaultHeaders: { "x-api-key": key } });
       this.httpClients.set(client.httpClientId, client);
     }
   }
@@ -60,8 +60,8 @@ export class LooksRareHttpClientManager {
   async makeRequest<T>(path: string, reqOptions?: OptionsOfJSONResponseBody): Promise<T> {
     try {
       const client = this.getHttpClient();
-      this.logger.log('clientId: ' + client.httpClientId);
-      
+      this.logger.log("clientId: " + client.httpClientId);
+
       const response = await client.makeRequest<T>(path, reqOptions);
 
       this.sortMap();

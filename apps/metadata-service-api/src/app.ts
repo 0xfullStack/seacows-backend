@@ -1,4 +1,12 @@
-import express, { json, urlencoded, NextFunction, Request, Response } from "express";
+import express, {
+  json,
+  urlencoded,
+  NextFunction,
+  Request,
+  Response,
+} from "express";
+import cors from "cors";
+import helmet from "helmet";
 import swaggerUi from "swagger-ui-express";
 import { ValidateError } from "tsoa";
 import { ZodError } from "zod";
@@ -15,7 +23,16 @@ export function initApp() {
       extended: true,
     })
   );
-  app.use(json());
+  app.use(
+    helmet(),
+    cors<cors.CorsRequest>({
+      origin: ["*"],
+      methods: ["GET", "HEAD", "POST", "DELETE", "OPTIONS"],
+      credentials: true,
+      maxAge: 86_400,
+    })
+  );
+
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(SwaggerSpec));
 
   app.use(router);

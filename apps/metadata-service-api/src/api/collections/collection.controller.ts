@@ -1,5 +1,17 @@
 import { Collection } from "@prisma/client";
-import { Body, Controller, Example, Request, Get, Path, Post, Query, Route, SuccessResponse, Queries } from "tsoa";
+import {
+  Body,
+  Controller,
+  Example,
+  Request,
+  Get,
+  Path,
+  Post,
+  Query,
+  Route,
+  SuccessResponse,
+  Queries,
+} from "tsoa";
 import { EthAddress } from "../../schemas/common";
 import { SearchCollectionName } from "./collection.schema";
 import CollectionService from "./collection.service";
@@ -19,7 +31,7 @@ export class CollectionController extends Controller {
    */
   @Get("{collectionId}")
   // @Example<Collection>({})
-  public async getCollection(@Path() collectionId: string): Promise<any> {
+  public async getCollection(@Path() collectionId: string) {
     const collection = EthAddress.parse(collectionId);
     return {
       collection: await CollectionService.getCollection(collection),

@@ -76,8 +76,13 @@ const searchCollections = async (name: string) => {
   return external.reservoirApi.searchCollections(name);
 };
 
+const getTrendingCollections = async () => {
+  return external.reservoirApi.requestMultipleCollections("30DayVolume", 12);
+};
+
 export default {
   getCollection,
   searchCollections,
   getCollectionTokens,
+  getTrendingCollections,
 };

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.0 (2023-04-03)
+
+
+### Features
+
+* Add top trending collections endpoint ([#15](https://github.com/yolominds/seacows-backend/issues/15)) ([b561707](https://github.com/yolominds/seacows-backend/commit/b561707004d89d7e9f3686e599170e015c7f9fce))
+
 ## 1.1.0 (2023-04-03)
 
 

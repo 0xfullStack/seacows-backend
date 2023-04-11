@@ -17,16 +17,14 @@ export function initApp() {
       extended: true,
     })
   );
-  app.use(cors());
-  // app.use(
-  //   helmet(),
-  //   cors<cors.CorsRequest>({
-  //     origin: ["*"],
-  //     methods: ["GET", "HEAD", "POST", "DELETE", "OPTIONS"],
-  //     credentials: true,
-  //     maxAge: 86_400,
-  //   })
-  // );
+  app.use(
+    cors<cors.CorsRequest>({
+      origin: ["*"],
+      methods: ["GET", "HEAD", "POST", "DELETE", "OPTIONS"],
+      credentials: true,
+      maxAge: 86_400,
+    })
+  );
 
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(SwaggerSpec));
 

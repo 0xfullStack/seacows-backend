@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.1 (2023-04-11)
+
+
+### Bug Fixes
+
+* cors issue ([20ebc26](https://github.com/yolominds/seacows-backend/commit/20ebc265c22bdd85228c8b72f4cc374cdc4e561b))
+
 ## 1.3.0 (2023-04-03)
 
 

@@ -1,12 +1,15 @@
 import { utils, BigNumber } from "ethers";
 import { z } from "zod";
 import { checksumAddress } from "../utils/address";
+import { SupportedChains } from "src/env";
 
 export const EthAddress = z
   .string()
   .length(42)
   .transform(checksumAddress)
   .refine((addr) => utils.isAddress(addr), { message: "Provided address in not an Ethereum address" });
+
+export const ChainName = z.enum(SupportedChains);
 
 // Zod BigNumber ensures that input is transformed into an actual
 // Ethers BigNumber type

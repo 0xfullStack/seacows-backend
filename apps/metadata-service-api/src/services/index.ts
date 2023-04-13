@@ -1,6 +1,6 @@
 import Moralis from "moralis";
 import { LooksRareHttpApi } from "./looksrare/httpApi";
-import env from "src/env";
+import env, { SupportedChain } from "src/env";
 import { ReservoirHttpApi } from "./reservoir/httpApi";
 import { ReservoirHttpClientManager } from "./reservoir/httpClientManager";
 import { LooksRareHttpClientManager } from "./looksrare/httpClientManager";
@@ -12,7 +12,7 @@ export interface ExternalServices {
 }
 
 export class ExternalServices implements ExternalServices {
-  private constructor(reservoirApiKeys: string[], looksrareApiKeys: string[]) {
+  private constructor(reservoirApiKeys: Record<SupportedChain, string[]>, looksrareApiKeys: string[]) {
     const reservoirHttpClient = new ReservoirHttpClientManager(reservoirApiKeys);
     const looksRareHttpClient = new LooksRareHttpClientManager(looksrareApiKeys);
 
@@ -21,7 +21,7 @@ export class ExternalServices implements ExternalServices {
     this.moralisNftApi = Moralis.EvmApi.nft;
   }
 
-  static apply(reservoirApiKeys: string[], looksrareApiKeys: string[]): ExternalServices {
+  static apply(reservoirApiKeys: Record<SupportedChain, string[]>, looksrareApiKeys: string[]): ExternalServices {
     return new ExternalServices(reservoirApiKeys, looksrareApiKeys);
   }
 }

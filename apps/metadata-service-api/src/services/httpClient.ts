@@ -3,6 +3,7 @@ import got from "got";
 import { attemptParseJson } from "../utils/shared";
 import { SharedHttpAgents } from "../utils/constants";
 import logger from "../utils/logger";
+import { SupportedChain } from "src/env";
 
 export class HttpClientError extends Error {
   public name = "HttpClientError";
@@ -31,6 +32,11 @@ export class HttpUnknownError extends HttpClientError {
 export type HttpClientConfig = {
   readonly baseUrl: string;
   readonly defaultHeaders: Record<string, string>;
+};
+
+export type HttpClientConfigOverride = {
+  readonly chain?: SupportedChain;
+  readonly baseUrl?: string;
 };
 
 export class HttpClientWithRetries {
@@ -85,8 +91,18 @@ export class HttpClientWithRetries {
    * Execute HTTP requests
    * This respects the "rate-limit" headers by default as defined in `defaultGotOptions` above.
    */
-  async makeRequest<T>(path: string, reqOptions: OptionsOfJSONResponseBody = {}): Promise<T> {
-    const response = await this.gotInstance<T>(path, reqOptions);
+  async makeRequest<T>(
+    path: string,
+    reqOptions: OptionsOfJSONResponseBody = {},
+    override?: HttpClientConfigOverride
+  ): Promise<T> {
+    const got = override?.baseUrl
+      ? this.gotInstance.extend({
+          prefixUrl: override.baseUrl,
+        })
+      : this.gotInstance;
+
+    const response = await got<T>(path, reqOptions);
     return this.processResponse<T>(response, path);
   }
 }

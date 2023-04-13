@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 1.3.3 (2023-04-11)
 
-
 ### Bug Fixes
 
-* cors issue ([e5b413a](https://github.com/yolominds/seacows-backend/commit/e5b413a2863279a2dec096602aab12a736b6c249))
+- cors issue ([e5b413a](https://github.com/yolominds/seacows-backend/commit/e5b413a2863279a2dec096602aab12a736b6c249))
 
 ### 1.3.2 (2023-04-11)
 

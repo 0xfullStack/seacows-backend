@@ -3,25 +3,31 @@ import { Body, Controller, Example, Request, Get, Path, Post, Query, Route, Succ
 import { EthAddress } from "../../schemas/common";
 import { SearchCollectionName } from "./collection.schema";
 import CollectionService from "./collection.service";
+import { SupportedChain } from "src/env";
+import { BaseController } from "../baseController";
 
-@Route("collections")
-export class CollectionController extends Controller {
+@Route(":chain/collections")
+export class CollectionController extends BaseController {
   @Get("search")
   /**
    * Search collections with params like name, etc
    */
-  public async searchCollections(@Query() name: string) {
+  public async searchCollections(@Path("chain") chain: SupportedChain, @Query() name: string) {
+    this.validateChain(chain);
+
     const queryName = SearchCollectionName.parse(name);
 
-    return await CollectionService.searchCollections(queryName);
+    return await CollectionService.searchCollections(chain, queryName);
   }
 
   @Get("trending")
   /**
    * Get 12 trending collections
    */
-  public async getTrendingCollections() {
-    return await CollectionService.getTrendingCollections();
+  public async getTrendingCollections(@Path("chain") chain: SupportedChain) {
+    this.validateChain(chain);
+
+    return await CollectionService.getTrendingCollections(chain);
   }
 
   /**
@@ -30,10 +36,12 @@ export class CollectionController extends Controller {
    * @returns
    */
   @Get("{collectionId}")
-  public async getCollection(@Path() collectionId: string) {
+  public async getCollection(@Path("chain") chain: SupportedChain, @Path() collectionId: string) {
+    this.validateChain(chain);
+
     const collection = EthAddress.parse(collectionId);
     return {
-      collection: await CollectionService.getCollection(collection),
+      collection: await CollectionService.getCollection(chain, collection),
     };
   }
 
@@ -44,12 +52,14 @@ export class CollectionController extends Controller {
    */
   @Get("{collectionId}/tokens")
   public async getCollectionTokens(
+    @Path("chain") chain: SupportedChain,
     @Path() collectionId: string
     // @Queries() queries: Record<string, any>
   ): Promise<any> {
+    this.validateChain(chain);
     const collection = EthAddress.parse(collectionId);
 
-    const tokens = await CollectionService.getCollectionTokens(collection);
+    const tokens = await CollectionService.getCollectionTokens(chain, collection);
     return {
       tokens,
     };

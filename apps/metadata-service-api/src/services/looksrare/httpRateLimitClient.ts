@@ -10,7 +10,7 @@ export class LooksRareHttpClientWithRateLimitRetries extends HttpClientWithRetri
   constructor(protected readonly config?: Partial<HttpClientConfig>) {
     super(config);
 
-    this.config = Object.assign({ baseUrl: LooksRareConfig.BASE_API_URL, defaultHeaders: {} }, config);
+    this.config = Object.assign({ baseUrl: LooksRareConfig.BASE_API_URL.mainnet, defaultHeaders: {} }, config);
 
     this.gotInstance = this.gotInstance.extend({
       // Base URL of the API.

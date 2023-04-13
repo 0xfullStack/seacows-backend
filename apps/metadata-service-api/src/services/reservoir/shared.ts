@@ -1,4 +1,5 @@
 import type { OptionsOfJSONResponseBody } from "got";
+import type { HttpClientConfigOverride } from "../httpClient";
 
 /**
  * Executes HTTP requests to Reservoir while respecting "rate-limit" headers coming back
@@ -10,5 +11,5 @@ export interface ReservoirHttpClient {
   readonly remaining?: number;
   readonly resetAt?: number;
 
-  makeRequest<T>(path: string, reqOptions?: OptionsOfJSONResponseBody): Promise<T>;
+  makeRequest<T>(path: string, reqOptions?: OptionsOfJSONResponseBody, override?: HttpClientConfigOverride): Promise<T>;
 }

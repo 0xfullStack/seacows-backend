@@ -5,12 +5,16 @@ import got from "got";
 import logger from "../../utils/logger";
 import { HttpClientWithRetries } from "../httpClient";
 import { SharedHttpAgents, ReservoirConfig } from "../../utils/constants";
+import { SupportedChain } from "src/env";
 
 export class ReservoirHttpClientWithRateLimitRetries extends HttpClientWithRetries {
-  constructor(protected readonly config?: Partial<HttpClientConfig>) {
+  constructor(
+    protected readonly config?: Partial<HttpClientConfig>,
+    private readonly defaultChain: SupportedChain = "mainnet"
+  ) {
     super(config);
 
-    this.config = Object.assign({ baseUrl: ReservoirConfig.BASE_API_URL, defaultHeaders: {} }, config);
+    this.config = Object.assign({ baseUrl: ReservoirConfig.BASE_API_URL[defaultChain], defaultHeaders: {} }, config);
 
     this.gotInstance = this.gotInstance.extend({
       // Base URL of the API.

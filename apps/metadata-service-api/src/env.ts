@@ -2,6 +2,13 @@ import z from "zod";
 import logger from "./utils/logger";
 import { getKeysFromProcessEnv } from "./utils/shared";
 
+export const SupportedChains = ["mainnet", "goerli"] as const;
+export type SupportedChain = (typeof SupportedChains)[number];
+export const SupportedChainId: Record<SupportedChain, number> = {
+  mainnet: 1,
+  goerli: 5,
+};
+
 export const AppEnv = z
   .object({
     CHAIN_ID: z.coerce.number(),
@@ -10,10 +17,18 @@ export const AppEnv = z
   })
   .transform((x) => ({
     ...x,
-    RESERVIOR_API_KEYS: getKeysFromProcessEnv("RESERVOIR_API_KEY"),
+    RESERVIOR_API_KEYS: {
+      mainnet: getKeysFromProcessEnv("RESERVOIR_API_KEY_MAINNET"),
+      goerli: getKeysFromProcessEnv("RESERVOIR_API_KEY_GOERLI"),
+    },
     LOOKSRARE_API_KEYS: getKeysFromProcessEnv("LOOKSRARE_API_KEY"),
   }))
-  .refine((x) => x.RESERVIOR_API_KEYS.length >= 1 && x.LOOKSRARE_API_KEYS.length >= 1);
+  .refine(
+    (x) =>
+      x.RESERVIOR_API_KEYS.mainnet.length >= 1 &&
+      x.RESERVIOR_API_KEYS.goerli.length >= 1 &&
+      x.LOOKSRARE_API_KEYS.length >= 1
+  );
 
 export type AppEnv = z.infer<typeof AppEnv>;
 
@@ -26,7 +41,10 @@ export function getAppEnv(processEnv: unknown = process.env): AppEnv {
     apiKeys: {
       moralis: env.MORALIS_API_KEY.slice(0, 4) + "...",
       looksrare: env.LOOKSRARE_API_KEYS.length,
-      reservoir: env.RESERVIOR_API_KEYS.length,
+      reservoir: {
+        mainnet: env.RESERVIOR_API_KEYS.mainnet.length,
+        goerli: env.RESERVIOR_API_KEYS.goerli.length,
+      },
     },
   });
 

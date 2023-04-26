@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## 1.4.0 (2023-04-13)
 
-
 ### Features
 
-* Multi chain support ([#17](https://github.com/yolominds/seacows-backend/issues/17)) ([762c3e8](https://github.com/yolominds/seacows-backend/commit/762c3e836aaee386c50bd164ea258d9dccbc02ef))
+- Multi chain support ([#17](https://github.com/yolominds/seacows-backend/issues/17)) ([762c3e8](https://github.com/yolominds/seacows-backend/commit/762c3e836aaee386c50bd164ea258d9dccbc02ef))
 
 ### 1.3.3 (2023-04-11)
 

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.3 (2023-04-27)
+
+
+### Bug Fixes
+
+* Connecting collection owner address ([#19](https://github.com/yolominds/seacows-backend/issues/19)) ([7c1f7c9](https://github.com/yolominds/seacows-backend/commit/7c1f7c963061e85773df158422920b7331434133))
+
 ### 1.4.2 (2023-04-27)
 
 ### Bug Fixes

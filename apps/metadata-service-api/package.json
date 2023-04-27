@@ -22,7 +22,6 @@
     "release": "npx standard-version --message 'chore(release): %s\n\n[skip ci]' -t @yolominds/metadata-service-api\\@ --no-verify"
   },
   "dependencies": {
-    "@koa/router": "^12.0.0",
     "@prisma/client": "^4.10.1",
     "@reservoir0x/reservoir-sdk": "^0.6.4",
     "@types/cors": "^2.8.13",
@@ -32,8 +31,6 @@
     "express": "^4.18.2",
     "got": "^11.8.0",
     "helmet": "^6.0.1",
-    "koa": "^2.14.1",
-    "koa2-swagger-ui": "^5.7.0",
     "lodash": "^4.17.21",
     "moralis": "^2.17.0",
     "swagger-ui-express": "^4.6.2",

@@ -22,7 +22,8 @@ model Network {
   currencyAddress String @map("currency_address") @db.VarChar(42)
 
   // Relationship
-  currency Currency @relation(fields: [currencyAddress], references: [address])
+  currency   Currency     @relation(fields: [currencyAddress], references: [address])
+  Collection Collection[]
 
   @@unique([name])
   @@map("network")
@@ -77,15 +78,17 @@ model Collection {
   osSlug        String?        @map("os_slug") @db.Text
   createdAt     DateTime       @default(now()) @map("created_at")
   updatedAt     DateTime?      @map("updated_at")
+  networkId     Int            @map("network_id")
 
   // Relationship
-  owner Wallet @relation(fields: [ownerWalletId], references: [id])
+  owner   Wallet  @relation(fields: [ownerWalletId], references: [id])
+  network Network @relation(fields: [networkId], references: [id])
 
   token          Token[]
   tokenAttribute TokenAttribute[]
   owners         TokenOwner[]
 
-  @@unique([address])
+  @@unique([networkId, address])
   @@map("collection")
 }
 

@@ -3,13 +3,15 @@ import { Prisma } from "@prisma/client";
 import prisma from "src/utils/prisma";
 import external from "src/services";
 import { ReservoirTokenResponse } from "src/schemas/reservoir";
-import { SupportedChain } from "src/env";
+import { SupportedChain, SupportedChainId } from "src/env";
 
 const getCollection = async (chain: SupportedChain, collectionAddress: string) => {
   const collection = await prisma.read.collection.findUnique({
     where: {
-      // TODO: chain
-      address: collectionAddress,
+      networkId_address: {
+        networkId: SupportedChainId[chain],
+        address: collectionAddress,
+      },
     },
   });
 
@@ -19,6 +21,7 @@ const getCollection = async (chain: SupportedChain, collectionAddress: string) =
 
   const { collections } = await external.reservoirApi.requestCollections(chain, collectionAddress);
   const rCollection = collections[0];
+  const networkId = SupportedChainId[chain];
 
   const created = await prisma.write.collection.create({
     data: {
@@ -39,6 +42,11 @@ const getCollection = async (chain: SupportedChain, collectionAddress: string) =
         },
       },
       createdAt: rCollection.createdAt,
+      network: {
+        connect: {
+          id: networkId,
+        },
+      },
     },
   });
 

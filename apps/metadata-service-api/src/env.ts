@@ -4,6 +4,8 @@ import { getKeysFromProcessEnv } from "./utils/shared";
 
 export const SupportedChains = ["mainnet", "goerli"] as const;
 export type SupportedChain = (typeof SupportedChains)[number];
+
+// check prisma/seed.ts, chainId should match with the network ids in the database
 export const SupportedChainId: Record<SupportedChain, number> = {
   mainnet: 1,
   goerli: 5,

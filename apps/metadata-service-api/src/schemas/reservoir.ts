@@ -18,10 +18,10 @@ export const ReservoirCollection = z.object({
   onSaleCount: z.coerce.number(),
   primaryContract: EthAddress,
   rank: z.object({
-    "1day": z.number(),
-    "7day": z.number(),
-    "30day": z.number(),
-    allTime: z.number(),
+    "1day": z.number().nullable(),
+    "7day": z.number().nullable(),
+    "30day": z.number().nullable(),
+    allTime: z.number().nullable(),
   }),
 });
 export type ReservoirCollection = z.infer<typeof ReservoirCollection>;

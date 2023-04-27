@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 1.4.2 (2023-04-27)
 
-
 ### Bug Fixes
 
-* Update collection table to support multi-networks, fix reservoir schema ([#18](https://github.com/yolominds/seacows-backend/issues/18)) ([c447178](https://github.com/yolominds/seacows-backend/commit/c44717812788ae91e71d20b2eccf5afc6cca6a6a))
+- Update collection table to support multi-networks, fix reservoir schema ([#18](https://github.com/yolominds/seacows-backend/issues/18)) ([c447178](https://github.com/yolominds/seacows-backend/commit/c44717812788ae91e71d20b2eccf5afc6cca6a6a))
 
 ### 1.4.1 (2023-04-26)
 

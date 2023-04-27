@@ -4,6 +4,15 @@ import { constants } from "ethers";
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.wallet.createMany({
+    data: [
+      {
+        id: 1,
+        address: constants.AddressZero,
+      },
+    ],
+  });
+
   await prisma.currency.createMany({
     data: [
       {

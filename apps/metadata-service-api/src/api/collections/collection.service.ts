@@ -25,7 +25,6 @@ const getCollection = async (chain: SupportedChain, collectionAddress: string) =
 
   const created = await prisma.write.collection.create({
     data: {
-      // TODO: add chain
       address: collectionAddress,
       isVerified: rCollection.openseaVerificationStatus === "verified",
       osSlug: rCollection.slug,
@@ -37,7 +36,8 @@ const getCollection = async (chain: SupportedChain, collectionAddress: string) =
       twitterLink: rCollection.twitterUsername,
       type: "ERC721",
       owner: {
-        create: {
+        // TODO: Use LooksRare API to fill in owner information
+        connect: {
           address: constants.AddressZero,
         },
       },

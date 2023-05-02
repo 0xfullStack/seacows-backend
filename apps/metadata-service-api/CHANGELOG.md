@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 1.4.4 (2023-04-27)
 
-
 ### Bug Fixes
 
-* Reservoir collection schema ([#20](https://github.com/yolominds/seacows-backend/issues/20)) ([db43bcc](https://github.com/yolominds/seacows-backend/commit/db43bcc3a3203e8d6c0468b77060bc8284b83791))
+- Reservoir collection schema ([#20](https://github.com/yolominds/seacows-backend/issues/20)) ([db43bcc](https://github.com/yolominds/seacows-backend/commit/db43bcc3a3203e8d6c0468b77060bc8284b83791))
 
 ### 1.4.3 (2023-04-27)
 

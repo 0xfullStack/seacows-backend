@@ -68,7 +68,18 @@ export class ReservoirHttpApi {
       { chain }
     );
 
-    return ReservoirCollectionResponse.parse(data);
+    const parsed = ReservoirCollectionResponse.safeParse(data);
+
+    if (parsed.success) {
+      return parsed.data;
+    } else {
+      console.error("ReservoirCollectionResponse parse error", {
+        data,
+        error: parsed.error,
+      });
+
+      return data as ReservoirCollectionResponse;
+    }
   }
 
   async requestCollectionAllAttributes(

@@ -15,7 +15,18 @@ export class LooksRareHttpApi {
       },
     });
 
-    return LooksRareCollectionResponse.parse(data);
+    const parsed = LooksRareCollectionResponse.safeParse(data);
+
+    if (parsed.success) {
+      return parsed.data;
+    } else {
+      console.error("LooksRareCollectionResponse parse error", {
+        data,
+        error: parsed.error,
+      });
+
+      return data as LooksRareCollectionResponse;
+    }
   }
 
   async requesToken(collection: string, tokenId: string) {

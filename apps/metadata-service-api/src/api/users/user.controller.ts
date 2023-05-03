@@ -1,17 +1,4 @@
-import {
-  Body,
-  Controller,
-  Example,
-  Request,
-  Get,
-  Path,
-  Post,
-  Query,
-  Route,
-  SuccessResponse,
-  Queries,
-  Tags,
-} from "tsoa";
+import { Get, Path, Route, Queries, Tags } from "tsoa";
 import { EthAddress } from "../../schemas/common";
 import { GetUserTokensArgs } from "./user.schema";
 import UserService from "./user.service";
@@ -31,7 +18,7 @@ export class UserController extends BaseController {
     @Path("chain") chain: SupportedChain,
     @Path() userId: string,
     @Queries() params: GetUserTokensArgs
-  ): Promise<any> {
+  ) {
     this.validateChain(chain);
     const account = EthAddress.parse(userId);
     const args = GetUserTokensArgs.parse(params);

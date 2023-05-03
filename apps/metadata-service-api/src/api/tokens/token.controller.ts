@@ -12,7 +12,7 @@ export class TokenController extends BaseController {
    * @returns
    */
   @Get("query")
-  public async queryTokens(@Path("chain") chain: SupportedChain, @Queries() params: QueryTokensArgs): Promise<any> {
+  public async queryTokens(@Path("chain") chain: SupportedChain, @Queries() params: QueryTokensArgs) {
     this.validateChain(chain);
     const args = QueryTokensArgs.parse(params);
 

@@ -70,7 +70,7 @@ export class CollectionController extends BaseController {
     @Path("chain") chain: SupportedChain,
     @Path() collectionId: string
     // @Queries() queries: Record<string, any>
-  ): Promise<any> {
+  ) {
     this.validateChain(chain);
     const collection = EthAddress.parse(collectionId);
 
@@ -91,7 +91,7 @@ export class CollectionController extends BaseController {
     @Path("chain") chain: SupportedChain,
     @Path() collectionId: string,
     @Query("ids") ids: string
-  ): Promise<any> {
+  ) {
     this.validateChain(chain);
     const collection = EthAddress.parse(collectionId);
     const tokenIds = TokenIds.parse(ids);

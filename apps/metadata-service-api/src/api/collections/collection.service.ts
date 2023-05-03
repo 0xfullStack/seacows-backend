@@ -66,11 +66,36 @@ const saveReservoirCollectionTokens = (collectionId: number, tokens: ReservoirTo
   });
 };
 
-const getCollectionTokens = async (chain: SupportedChain, collectionAddress: string) => {
+const getCollectionAllTokens = async (chain: SupportedChain, collectionAddress: string) => {
   const collection = await getCollection(chain, collectionAddress);
   const tokens = await external.reservoirApi.requestMaxTokens(chain, collectionAddress, undefined, (tokens) =>
     saveReservoirCollectionTokens(collection.id, tokens)
   );
+
+  return tokens;
+};
+
+const getCollectionTokens = async (chain: SupportedChain, collectionAddress: string, tokenIds: string[]) => {
+  const collection = await getCollection(chain, collectionAddress);
+
+  if (!collection) {
+    return {
+      tokens: [],
+      continuation: null,
+    };
+  }
+
+  // TODO: Find tokens and read from our db
+  // const dbTokens = await prisma.read.token.findMany({
+  //   where: {
+  //     collectionId: collection.id,
+  //     tokenId: {
+  //       in: tokenIds.map(id => new Prisma.Decimal(id))
+  //     }
+  //   }
+  // })
+
+  const tokens = await external.reservoirApi.requestMultipleCollectionTokens(chain, collectionAddress, tokenIds);
 
   return tokens;
 };
@@ -87,5 +112,6 @@ export default {
   getCollection,
   searchCollections,
   getCollectionTokens,
+  getCollectionAllTokens,
   getTrendingCollections,
 };

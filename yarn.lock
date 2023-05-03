@@ -569,10 +569,10 @@
   resolved "https://registry.npmjs.org/@prisma/engines/-/engines-4.10.1.tgz"
   integrity sha512-B3tcTxjx196nuAu1GOTKO9cGPUgTFHYRdkPkTS4m5ptb2cejyBlH9X7GOfSt3xlI7p4zAJDshJP4JJivCg9ouA==
 
-"@reservoir0x/reservoir-sdk@^0.6.4":
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/@reservoir0x/reservoir-sdk/-/reservoir-sdk-0.6.4.tgz#1754f714bd2a950cd6d8face10f881aa41ec6780"
-  integrity sha512-tJqvf97RHlOUy88qk6N1LUg41dyDXu8xiHyAtv378LpjBaMY8qgx4LsHthiKQ2KmXuNB1nSP6uzgvOQAj368Vw==
+"@reservoir0x/reservoir-sdk@^0.9.3":
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/@reservoir0x/reservoir-sdk/-/reservoir-sdk-0.9.3.tgz#db46b8b1cdcdc0e55569c428f661433572751df5"
+  integrity sha512-g3yOVmU6Q6vixQO7+Khl9zC9TYYeVQ9u9JXYgFUf5vgOdlZrZ2Wv3w5U5nqVL2bY4pTJZGiLLzQpIvcLlriXYQ==
   dependencies:
     axios "^0.27.2"
 

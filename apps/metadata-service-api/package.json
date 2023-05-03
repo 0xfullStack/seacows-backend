@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.10.1",
-    "@reservoir0x/reservoir-sdk": "^0.6.4",
+    "@reservoir0x/reservoir-sdk": "^0.9.3",
     "@types/cors": "^2.8.13",
     "agentkeepalive": "^4.2.1",
     "cors": "^2.8.5",

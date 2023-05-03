@@ -19,3 +19,20 @@ export const ZodBigNumber = z
     message: "Invalid type of input for BigNumber conversion. Expected numberish input.",
   })
   .transform((x) => BigNumber.from(String(x)));
+
+export const TokenIds = z
+  .string()
+  .transform((str) => str.split(","))
+  .refine(
+    (ids) => {
+      for (const id of ids) {
+        try {
+          BigNumber.from(id);
+        } catch {
+          return false;
+        }
+      }
+      return true;
+    },
+    { message: "Provided ids is not an array of number string" }
+  );

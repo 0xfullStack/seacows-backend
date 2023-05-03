@@ -12,6 +12,7 @@ type ExploreAttributesResponse =
   paths["/collections/{collection}/attributes/explore/v4"]["get"]["responses"]["200"]["schema"];
 type MultipleCollectionsResponse = paths["/collections/v5"]["get"]["responses"]["200"]["schema"];
 type UserTokensResponse = paths["/users/{user}/tokens/v6"]["get"]["responses"]["200"]["schema"];
+type GetTokensResponse = paths["/tokens/v6"]["get"]["responses"]["200"]["schema"];
 type CollectionAllAttributesResponse =
   paths["/collections/{collection}/attributes/all/v3"]["get"]["responses"]["200"]["schema"];
 type SearchCollectionsResponse = paths["/search/collections/v1"]["get"]["responses"]["200"]["schema"];
@@ -89,6 +90,25 @@ export class ReservoirHttpApi {
     const data = await this.ReservoirHttpClient.makeRequest<CollectionAllAttributesResponse>(
       `collection/${collection}/attributes/all/v3`,
       {},
+      { chain }
+    );
+
+    return data;
+  }
+
+  async requestMultipleCollectionTokens(chain: SupportedChain, collection: string, tokenIds: string[]) {
+    const searchParams = new URLSearchParams([
+      ["includeAttributes", "true"],
+      ...tokenIds.map((id) => ["tokens", `${collection}:${id}`]),
+    ]);
+
+    console.log("searchParams", searchParams.toString());
+
+    const data = await this.ReservoirHttpClient.makeRequest<GetTokensResponse>(
+      `tokens/v6`,
+      {
+        searchParams,
+      },
       { chain }
     );
 

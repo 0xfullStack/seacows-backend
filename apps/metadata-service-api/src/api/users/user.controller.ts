@@ -1,4 +1,17 @@
-import { Body, Controller, Example, Request, Get, Path, Post, Query, Route, SuccessResponse, Queries } from "tsoa";
+import {
+  Body,
+  Controller,
+  Example,
+  Request,
+  Get,
+  Path,
+  Post,
+  Query,
+  Route,
+  SuccessResponse,
+  Queries,
+  Tags,
+} from "tsoa";
 import { EthAddress } from "../../schemas/common";
 import { GetUserTokensArgs } from "./user.schema";
 import UserService from "./user.service";
@@ -6,6 +19,7 @@ import { BaseController } from "../baseController";
 import { SupportedChain } from "src/env";
 
 @Route(":chain/users")
+@Tags("user")
 export class UserController extends BaseController {
   /**
    *

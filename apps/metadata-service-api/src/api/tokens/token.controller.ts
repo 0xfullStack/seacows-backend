@@ -1,10 +1,11 @@
-import { Get, Path, Post, Query, Route, SuccessResponse, Queries } from "tsoa";
+import { Get, Path, Post, Tags, Route, SuccessResponse, Queries } from "tsoa";
 import { QueryTokensArgs } from "./token.schema";
 import TokenService from "./token.service";
 import { BaseController } from "../baseController";
 import { SupportedChain } from "src/env";
 
 @Route(":chain/tokens")
+@Tags("token")
 export class TokenController extends BaseController {
   /**
    *

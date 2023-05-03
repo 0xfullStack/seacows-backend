@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## 1.5.0 (2023-05-03)
 
-
 ### Features
 
-* Get collection specific tokens by ids ([#22](https://github.com/yolominds/seacows-backend/issues/22)) ([89adb17](https://github.com/yolominds/seacows-backend/commit/89adb176461f0ff0814055be5046641c7fc14546))
+- Get collection specific tokens by ids ([#22](https://github.com/yolominds/seacows-backend/issues/22)) ([89adb17](https://github.com/yolominds/seacows-backend/commit/89adb176461f0ff0814055be5046641c7fc14546))
 
 ### 1.4.5 (2023-05-02)
 

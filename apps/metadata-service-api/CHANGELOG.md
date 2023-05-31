@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.6.0 (2023-05-31)
+
+
+### Features
+
+* AMM pool check added ([#25](https://github.com/yolominds/seacows-backend/issues/25)) ([3b28a78](https://github.com/yolominds/seacows-backend/commit/3b28a789a56de3a6b48005f9cfddfe6704f9b850))
+
 ### 1.5.2 (2023-05-03)
 
 ### 1.5.1 (2023-05-03)

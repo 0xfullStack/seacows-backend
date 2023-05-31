@@ -19,6 +19,7 @@ import { SearchCollectionName } from "./collection.schema";
 import CollectionService from "./collection.service";
 import { SupportedChain } from "src/env";
 import { BaseController } from "../baseController";
+import { getAmmPools } from "src/graphql/amm";
 
 @Route(":chain/collections")
 @Tags("collection")
@@ -27,12 +28,38 @@ export class CollectionController extends BaseController {
   /**
    * Search collections with params like name, etc
    */
-  public async searchCollections(@Path("chain") chain: SupportedChain, @Query() name: string) {
+  public async searchCollections(
+    @Path("chain") chain: SupportedChain,
+    @Query() name: string,
+    @Query() checkPool: string
+  ) {
     this.validateChain(chain);
 
     const queryName = SearchCollectionName.parse(name);
+    const checkPoolStatus = checkPool === "true";
 
-    return await CollectionService.searchCollections(chain, queryName);
+    console.log("checkPool", checkPool);
+
+    const result = await CollectionService.searchCollections(chain, queryName);
+    const collectionIds = (result.collections || [])
+      .map((c) => c.contract?.toLowerCase())
+      .filter((c) => !!c) as string[];
+
+    if (checkPoolStatus) {
+      const pools = await getAmmPools({ where: { collections: collectionIds } });
+
+      const status: Record<string, boolean> = {};
+      for (const pool of pools) {
+        status[pool.collection.id] = true;
+      }
+
+      return {
+        ...result,
+        status,
+      };
+    }
+
+    return result;
   }
 
   @Get("trending")

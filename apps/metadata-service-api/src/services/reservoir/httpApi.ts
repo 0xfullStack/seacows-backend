@@ -33,6 +33,7 @@ export class ReservoirHttpApi {
         searchParams: {
           collection,
           continuation,
+          limit: 200,
         },
       },
       { chain }

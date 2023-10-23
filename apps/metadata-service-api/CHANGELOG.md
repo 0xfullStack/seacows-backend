@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.7.0 (2023-10-23)
+
+
+### Features
+
+* devops doc ([#27](https://github.com/yolominds/seacows-backend/issues/27)) ([4c0dc85](https://github.com/yolominds/seacows-backend/commit/4c0dc853d504998cc5138310d5323bbd78676054))
+
 ### 1.6.1 (2023-07-10)
 
 ### Bug Fixes

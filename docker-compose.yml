@@ -11,30 +11,14 @@ services:
   #       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
   #   networks:
   #       - rabbitmq_nodejs
-  db:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+  postgres:
+    image: postgres:14
     ports:
-      - "5432:5432"
-    volumes:
-      - db:/var/lib/postgresql/data
-  # consumer:
-  #   build:
-  #     context: ./
-  #     target: dev
-  #   volumes:
-  #     - .:/src
-  #   depends_on:
-  #     - "rabbitmq"
-  #   command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node consumer.js'
-  #   environment:
-  #     NODE_ENV: production
-  #     AMQP_URL: amqp://guest:guest@rabbitmq:5672
-  #   networks:
-  #     - rabbitmq_nodejs
-networks:
-  rabbitmq_nodejs:
-    driver: bridge
+      - "127.0.0.1:5432:5432"
+    command: ["postgres", "-cshared_preload_libraries=pg_stat_statements", "-cmax_connections=200"]
+    environment:
+      POSTGRES_USER: seacows
+      POSTGRES_PASSWORD: seacows
+      POSTGRES_DB: seacows_backend
+      PGDATA: "/var/lib/postgresql/data"
+      POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"

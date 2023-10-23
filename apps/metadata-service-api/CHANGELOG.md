@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 1.6.1 (2023-07-10)
 
-
 ### Bug Fixes
 
-* Increase user token count ([#26](https://github.com/yolominds/seacows-backend/issues/26)) ([2cc1bc9](https://github.com/yolominds/seacows-backend/commit/2cc1bc953113f3dc7e446d9e42cb43e1b4e833d9))
+- Increase user token count ([#26](https://github.com/yolominds/seacows-backend/issues/26)) ([2cc1bc9](https://github.com/yolominds/seacows-backend/commit/2cc1bc953113f3dc7e446d9e42cb43e1b4e833d9))
 
 ## 1.6.0 (2023-05-31)
 

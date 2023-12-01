@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.8.0 (2023-12-01)
+
+
+### Features
+
+* sepolia network support ([bd6b607](https://github.com/yolominds/seacows-backend/commit/bd6b607191539f0fd40e7a2fb99175269b050c87))
+
 ## 1.7.0 (2023-10-23)
 
 ### Features

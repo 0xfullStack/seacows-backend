@@ -17,6 +17,7 @@ export const ReservoirConfig = {
   BASE_API_URL: {
     mainnet: "https://api.reservoir.tools/",
     goerli: "https://api-goerli.reservoir.tools/",
+    sepolia: "https://api-sepolia.reservoir.tools/",
   },
   DEFAULT_REQ_RATE_LIMIT_PER_CLIENT: 60,
   RATE_LIMIT_WINDOW_MS: 1 * 60 * 1000,
@@ -26,6 +27,7 @@ export const LooksRareConfig = {
   BASE_API_URL: {
     mainnet: "https://api.looksrare.org/",
     goerli: "https://api-goerli.looksrare.org/",
+    sepolia: "https://api-sepolia.looksrare.org/",
   },
   DEFAULT_REQ_RATE_LIMIT_PER_CLIENT: 60,
   RATE_LIMIT_WINDOW_MS: 1 * 60 * 1000,

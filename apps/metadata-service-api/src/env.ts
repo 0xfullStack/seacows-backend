@@ -2,18 +2,18 @@ import z from "zod";
 import logger from "./utils/logger";
 import { getKeysFromProcessEnv } from "./utils/shared";
 
-export const SupportedChains = ["mainnet", "goerli"] as const;
+export const SupportedChains = ["mainnet", "goerli", "sepolia"] as const;
 export type SupportedChain = (typeof SupportedChains)[number];
 
 // check prisma/seed.ts, chainId should match with the network ids in the database
 export const SupportedChainId: Record<SupportedChain, number> = {
   mainnet: 1,
   goerli: 5,
+  sepolia: 11155111,
 };
 
 export const AppEnv = z
   .object({
-    CHAIN_ID: z.coerce.number(),
     DATABASE_URL: z.string(),
     MORALIS_API_KEY: z.string(),
   })
@@ -22,6 +22,7 @@ export const AppEnv = z
     RESERVIOR_API_KEYS: {
       mainnet: getKeysFromProcessEnv("RESERVOIR_API_KEY_MAINNET"),
       goerli: getKeysFromProcessEnv("RESERVOIR_API_KEY_GOERLI"),
+      sepolia: getKeysFromProcessEnv("RESERVOIR_API_KEY_SEPOLIA"),
     },
     LOOKSRARE_API_KEYS: getKeysFromProcessEnv("LOOKSRARE_API_KEY"),
   }))
@@ -46,6 +47,7 @@ export function getAppEnv(processEnv: unknown = process.env): AppEnv {
       reservoir: {
         mainnet: env.RESERVIOR_API_KEYS.mainnet.length,
         goerli: env.RESERVIOR_API_KEYS.goerli.length,
+        sepolia: env.RESERVIOR_API_KEYS.sepolia.length,
       },
     },
   });

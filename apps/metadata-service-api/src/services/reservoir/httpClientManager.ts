@@ -19,6 +19,7 @@ export class ReservoirHttpClientManager {
   private httpClients: Record<SupportedChain, Map<string, ReservoirHttpClient>> = {
     mainnet: new Map(),
     goerli: new Map(),
+    sepolia: new Map(),
   };
 
   constructor(apiKeys: Record<SupportedChain, string[]>) {

@@ -37,6 +37,11 @@ async function main() {
         name: "Goerli",
         currencyAddress: constants.AddressZero,
       },
+      {
+        id: 11155111,
+        name: "Sepolia",
+        currencyAddress: constants.AddressZero,
+      },
     ],
   });
 }

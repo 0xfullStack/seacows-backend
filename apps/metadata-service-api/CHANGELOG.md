@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.8.2 (2023-12-06)
+
+
+### Features
+
+* address whitelist api ([#28](https://github.com/yolominds/seacows-backend/issues/28)) ([64d0d14](https://github.com/yolominds/seacows-backend/commit/64d0d143e714bbeb7d24cc8e3d126b035d7c8810))
+
 ### 1.8.1 (2023-12-01)
 
 ## 1.8.0 (2023-12-01)

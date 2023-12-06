@@ -1,6 +1,5 @@
 import request from "graphql-request";
-
-export const SUBGRAPH_URL = "https://subgraph-goerli-dev.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph";
+import { SupportedChain, SupportedSubgraphEndpoint } from "src/env";
 
 /**
  * General wrapper around requests to the api & subgraph to centralize error handling
@@ -10,10 +9,15 @@ export const SUBGRAPH_URL = "https://subgraph-goerli-dev.seacows.io/subgraphs/na
  * @param requestHeaders HeadersInit
  * @param url string url to query
  */
-export const graphql = async <T>(query: string, params?: Record<string, any>, requestHeaders?: HeadersInit) => {
-  // TODO: Handle different GraphQL request based on the chainId
+export const graphql = async <T>(
+  chain: SupportedChain,
+  query: string,
+  params?: Record<string, any>,
+  requestHeaders?: HeadersInit
+) => {
   try {
-    const res = await request<T>(SUBGRAPH_URL, query, params, requestHeaders);
+    const endpoint = SupportedSubgraphEndpoint[chain];
+    const res = await request<T>(endpoint, query, params, requestHeaders);
     return res;
   } catch (error: any) {
     console.error("GraphQL error", { error });

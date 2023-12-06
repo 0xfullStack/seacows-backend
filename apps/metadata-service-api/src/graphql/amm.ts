@@ -1,5 +1,6 @@
 import { gql } from "graphql-request";
 import { graphql } from "./client";
+import { SupportedChain } from "src/env";
 
 interface PaginatedInput {
   skip?: number;
@@ -7,6 +8,7 @@ interface PaginatedInput {
 }
 
 interface PoolInput extends PaginatedInput {
+  chain: SupportedChain;
   where: {
     collections: string[];
   };
@@ -21,7 +23,7 @@ interface AmmPool {
 }
 
 export const getAmmPools = async (
-  { skip = 0, first = 1000, where }: PoolInput,
+  { skip = 0, first = 1000, chain, where }: PoolInput,
   requestHeaders?: HeadersInit
 ): Promise<AmmPool[]> => {
   const query = gql`
@@ -37,6 +39,7 @@ export const getAmmPools = async (
   `;
 
   const res = await graphql<{ pools: AmmPool[] }>(
+    chain,
     query,
     {
       where: {

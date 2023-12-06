@@ -24,6 +24,7 @@ model Network {
   // Relationship
   currency   Currency     @relation(fields: [currencyAddress], references: [address])
   Collection Collection[]
+  WhiteList  Whitelist[]
 
   @@unique([name])
   @@map("network")
@@ -167,4 +168,19 @@ model TokenAttribute {
 
   @@id([tokenId, attributeId])
   @@map("token_attribute")
+}
+
+// Description: WhiteList data.
+model Whitelist {
+  id        Int       @id @default(autoincrement())
+  networkId Int       @map("network_id")
+  address   String    @db.Char(42) // length_check = 42  
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+
+  // Relationship
+  network Network @relation(fields: [networkId], references: [id])
+
+  @@unique([networkId, address])
+  @@map("whitelist")
 }

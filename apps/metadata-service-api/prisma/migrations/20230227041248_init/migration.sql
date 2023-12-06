@@ -104,6 +104,17 @@ CREATE TABLE "token_attribute" (
     CONSTRAINT "token_attribute_pkey" PRIMARY KEY ("token_id","attribute_id")
 );
 
+-- CreateTable
+CREATE TABLE "whitelist" (
+    "id" SERIAL NOT NULL,
+    "network_id" INTEGER NOT NULL,
+    "address" VARCHAR(42) NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3),
+
+    CONSTRAINT "whitelist_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "network_name_key" ON "network"("name");
 
@@ -134,6 +145,9 @@ CREATE INDEX "attribute_trait_type_idx" ON "attribute"("trait_type");
 -- CreateIndex
 CREATE UNIQUE INDEX "attribute_trait_type_value_key" ON "attribute"("trait_type", "value");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "whitelist_network_id_address_key" ON "whitelist"("network_id", "address");
+
 -- AddForeignKey
 ALTER TABLE "network" ADD CONSTRAINT "network_currency_address_fkey" FOREIGN KEY ("currency_address") REFERENCES "currency"("address") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -160,3 +174,6 @@ ALTER TABLE "token_attribute" ADD CONSTRAINT "token_attribute_collection_id_fkey
 
 -- AddForeignKey
 ALTER TABLE "token_attribute" ADD CONSTRAINT "token_attribute_token_id_fkey" FOREIGN KEY ("token_id") REFERENCES "token"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "whitelist" ADD CONSTRAINT "whitelist_network_id_fkey" FOREIGN KEY ("network_id") REFERENCES "network"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

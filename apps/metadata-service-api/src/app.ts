@@ -18,10 +18,9 @@ export function initApp() {
     })
   );
   app.use(cors());
-
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(SwaggerSpec));
-
   app.use(router);
+
   RegisterRoutes(router);
 
   app.use((req, res) => {

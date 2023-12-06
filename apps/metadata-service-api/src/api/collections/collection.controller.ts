@@ -46,7 +46,7 @@ export class CollectionController extends BaseController {
       .filter((c) => !!c) as string[];
 
     if (checkPoolStatus) {
-      const pools = await getAmmPools({ where: { collections: collectionIds } });
+      const pools = await getAmmPools({ chain, where: { collections: collectionIds } });
 
       const status: Record<string, boolean> = {};
       for (const pool of pools) {

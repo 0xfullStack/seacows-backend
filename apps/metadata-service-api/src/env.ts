@@ -12,6 +12,12 @@ export const SupportedChainId: Record<SupportedChain, number> = {
   sepolia: 11155111,
 };
 
+export const SupportedSubgraphEndpoint: Record<SupportedChain, string> = {
+  mainnet: "https://subgraph-mainnet-prod.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
+  goerli: "https://subgraph-goerli-dev.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
+  sepolia: "https://subgraph-sepolia-dev.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
+};
+
 export const AppEnv = z
   .object({
     DATABASE_URL: z.string(),

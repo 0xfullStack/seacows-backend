@@ -16,7 +16,7 @@ export const SupportedChainId: Record<SupportedChain, number> = {
 export const SupportedSubgraphEndpoint: Record<SupportedChain, string> = {
   mainnet: "https://subgraph-mainnet-prod.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
   goerli: "https://api.studio.thegraph.com/query/54972/goerli-seacows-amm/version/latest",
-  sepolia: "https://api.studio.thegraph.com/query/54972/sepolia-seacows-amm/version/latest",
+  sepolia: "https://subgraph-sepolia-dev.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
 };
 
 export const AppEnv = z

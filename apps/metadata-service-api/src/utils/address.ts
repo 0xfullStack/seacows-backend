@@ -7,3 +7,7 @@ export const checksumAddress = (address: string) => {
 
   return address;
 };
+
+export function getChainAddress(chain: string, address: string) {
+  return chain + "-" + address;
+}

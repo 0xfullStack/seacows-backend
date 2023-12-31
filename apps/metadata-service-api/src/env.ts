@@ -1,6 +1,7 @@
 import z from "zod";
 import logger from "./utils/logger";
 import { getKeysFromProcessEnv } from "./utils/shared";
+import { ChainName } from "./schemas/common";
 
 export const SupportedChains = ["mainnet", "goerli", "sepolia"] as const;
 export type SupportedChain = (typeof SupportedChains)[number];
@@ -14,12 +15,15 @@ export const SupportedChainId: Record<SupportedChain, number> = {
 
 export const SupportedSubgraphEndpoint: Record<SupportedChain, string> = {
   mainnet: "https://subgraph-mainnet-prod.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
-  goerli: "https://subgraph-goerli-dev.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
-  sepolia: "https://subgraph-sepolia-dev.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
+  goerli: "https://api.studio.thegraph.com/query/54972/goerli-seacows-amm/version/latest",
+  sepolia: "https://api.studio.thegraph.com/query/54972/sepolia-seacows-amm/version/latest",
 };
 
 export const AppEnv = z
   .object({
+    CHAINS: z.string().transform((str) => str.split(",")),
+    CRON_PATTERN: z.string(),
+    REDIS_URL: z.string(),
     DATABASE_URL: z.string(),
     MORALIS_API_KEY: z.string(),
   })
@@ -40,6 +44,15 @@ export const AppEnv = z
   );
 
 export type AppEnv = z.infer<typeof AppEnv>;
+
+export function validateChain(chain: string) {
+  try {
+    ChainName.parse(chain);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export function getAppEnv(processEnv: unknown = process.env): AppEnv {
   const env = AppEnv.parse(processEnv);

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.9.0 (2023-12-31)
+
+
+### Features
+
+* add websocket events ([#29](https://github.com/yolominds/seacows-backend/issues/29)) ([a855006](https://github.com/yolominds/seacows-backend/commit/a855006131770bb114d7ea572366d1a23d1115ae)), closes [#30](https://github.com/yolominds/seacows-backend/issues/30)
+
 ### 1.8.2 (2023-12-06)
 
 ### Features

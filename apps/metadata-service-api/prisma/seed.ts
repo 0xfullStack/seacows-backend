@@ -42,6 +42,16 @@ async function main() {
         name: "Sepolia",
         currencyAddress: constants.AddressZero,
       },
+      {
+        id: 137,
+        name: "Polygon Mainnet",
+        currencyAddress: constants.AddressZero,
+      },
+      {
+        id: 80001,
+        name: "Mumbai",
+        currencyAddress: constants.AddressZero,
+      },
     ],
   });
 }

@@ -3,7 +3,7 @@ import logger from "./utils/logger";
 import { getKeysFromProcessEnv } from "./utils/shared";
 import { ChainName } from "./schemas/common";
 
-export const SupportedChains = ["mainnet", "goerli", "sepolia"] as const;
+export const SupportedChains = ["mainnet", "goerli", "sepolia", "polygon", "mumbai"] as const;
 export type SupportedChain = (typeof SupportedChains)[number];
 
 // check prisma/seed.ts, chainId should match with the network ids in the database
@@ -11,12 +11,16 @@ export const SupportedChainId: Record<SupportedChain, number> = {
   mainnet: 1,
   goerli: 5,
   sepolia: 11155111,
+  polygon: 137,
+  mumbai: 80001,
 };
 
 export const SupportedSubgraphEndpoint: Record<SupportedChain, string> = {
   mainnet: "https://subgraph-mainnet-prod.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
   goerli: "https://api.studio.thegraph.com/query/54972/goerli-seacows-amm/version/latest",
   sepolia: "https://subgraph-sepolia-dev.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
+  polygon: "https://subgraph-polygon-prod.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
+  mumbai: "https://subgraph-mumbai-dev.seacows.io/subgraphs/name/seacows/seacows-amm-subgraph",
 };
 
 export const AppEnv = z
@@ -33,6 +37,8 @@ export const AppEnv = z
       mainnet: getKeysFromProcessEnv("RESERVOIR_API_KEY_MAINNET"),
       goerli: getKeysFromProcessEnv("RESERVOIR_API_KEY_GOERLI"),
       sepolia: getKeysFromProcessEnv("RESERVOIR_API_KEY_SEPOLIA"),
+      polygon: getKeysFromProcessEnv("RESERVOIR_API_KEY_POLYGON"),
+      mumbai: getKeysFromProcessEnv("RESERVOIR_API_KEY_MUMBAI"),
     },
     LOOKSRARE_API_KEYS: getKeysFromProcessEnv("LOOKSRARE_API_KEY"),
   }))
@@ -40,6 +46,9 @@ export const AppEnv = z
     (x) =>
       x.RESERVIOR_API_KEYS.mainnet.length >= 1 &&
       x.RESERVIOR_API_KEYS.goerli.length >= 1 &&
+      x.RESERVIOR_API_KEYS.sepolia.length >= 1 &&
+      x.RESERVIOR_API_KEYS.polygon.length >= 1 &&
+      x.RESERVIOR_API_KEYS.mumbai.length >= 1 &&
       x.LOOKSRARE_API_KEYS.length >= 1
   );
 
@@ -67,6 +76,8 @@ export function getAppEnv(processEnv: unknown = process.env): AppEnv {
         mainnet: env.RESERVIOR_API_KEYS.mainnet.length,
         goerli: env.RESERVIOR_API_KEYS.goerli.length,
         sepolia: env.RESERVIOR_API_KEYS.sepolia.length,
+        polygon: env.RESERVIOR_API_KEYS.polygon.length,
+        mumbai: env.RESERVIOR_API_KEYS.mumbai.length,
       },
     },
   });

@@ -20,6 +20,8 @@ export class ReservoirHttpClientManager {
     mainnet: new Map(),
     goerli: new Map(),
     sepolia: new Map(),
+    polygon: new Map(),
+    mumbai: new Map(),
   };
 
   constructor(apiKeys: Record<SupportedChain, string[]>) {

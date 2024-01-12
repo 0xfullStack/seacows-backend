@@ -25,5 +25,5 @@ COPY --from=builder /app/node_modules ./node_modules
 # COPY --from=builder /app/yarn*.json ./
 COPY --from=builder /app/apps/metadata-service-api/build ./build
 
-EXPOSE 3000
+EXPOSE 3001
 CMD [ "node", "build/src/server.js" ]

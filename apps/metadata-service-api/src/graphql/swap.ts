@@ -10,7 +10,7 @@ interface PaginatedInput {
 interface SwapInput extends PaginatedInput {
   chain: SupportedChain;
   where: {
-    collection: string;
+    collection?: string;
   };
 }
 

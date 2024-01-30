@@ -20,6 +20,7 @@ import CollectionService from "./collection.service";
 import { SupportedChain } from "src/env";
 import { BaseController } from "../baseController";
 import { getAmmPools } from "src/graphql/amm";
+import { ReservoirCollectionMetadata } from "src/schemas/reservoir";
 
 @Route(":chain/collections")
 @Tags("collection")
@@ -126,5 +127,23 @@ export class CollectionController extends BaseController {
     const response = await CollectionService.getCollectionTokens(chain, collection, tokenIds);
 
     return response;
+  }
+
+  /**
+   * Get specific collection metadata and statistics with address
+   * @example collectionId "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+   * @returns
+   */
+  @Get("{collectionId}/metadata")
+  public async getCollectionMetadata(@Path("chain") chain: SupportedChain, @Path() collectionId: string) {
+    this.validateChain(chain);
+
+    const collection = EthAddress.parse(collectionId);
+    const { collections } = await CollectionService.getCollectionMetadata(chain, collection);
+    return {
+      collection: collections[0],
+    } as {
+      collection: ReservoirCollectionMetadata;
+    };
   }
 }

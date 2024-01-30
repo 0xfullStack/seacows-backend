@@ -20,37 +20,37 @@ export interface GetPoolNftsArgs {
 export const GetPoolSwapsArgs = z.object({
   first: z.number().int().min(1).optional(),
   skip: z.number().int().min(0).optional(),
-  collection: EthAddress,
+  collection: EthAddress.optional(),
 });
 
 export interface GetPoolSwapsArgs {
   first?: number;
   skip?: number;
-  collection: string;
+  collection?: string;
 }
 
 export const GetPoolMintsArgs = z.object({
   first: z.number().int().min(1).optional(),
   skip: z.number().int().min(0).optional(),
-  collection: EthAddress,
+  collection: EthAddress.optional(),
 });
 
 export interface GetPoolMintsArgs {
   first?: number;
   skip?: number;
-  collection: string;
+  collection?: string;
 }
 
 export const GetPoolBurnsArgs = z.object({
   first: z.number().int().min(1).optional(),
   skip: z.number().int().min(0).optional(),
-  collection: EthAddress,
+  collection: EthAddress.optional(),
 });
 
 export interface GetPoolBurnsArgs {
   first?: number;
   skip?: number;
-  collection: string;
+  collection?: string;
 }
 
 export const GetPositionArgs = z.object({

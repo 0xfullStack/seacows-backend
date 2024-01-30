@@ -7,10 +7,10 @@ export interface PaginatedInput {
   first?: number;
 }
 
-export interface SwapInput extends PaginatedInput {
+export interface BurnInput extends PaginatedInput {
   chain: SupportedChain;
   where: {
-    collection: string;
+    collection?: string;
   };
 }
 
@@ -32,7 +32,7 @@ export interface Burn {
 }
 
 export const getBurns = async (
-  { skip = 0, first = 1000, chain, where }: SwapInput,
+  { skip = 0, first = 1000, chain, where }: BurnInput,
   requestHeaders?: HeadersInit
 ): Promise<Burn[]> => {
   const query = gql`

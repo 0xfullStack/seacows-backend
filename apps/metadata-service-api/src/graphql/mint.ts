@@ -10,7 +10,7 @@ export interface PaginatedInput {
 export interface MintInput extends PaginatedInput {
   chain: SupportedChain;
   where: {
-    collection: string;
+    collection?: string;
   };
 }
 

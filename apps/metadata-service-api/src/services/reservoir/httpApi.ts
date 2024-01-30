@@ -1,7 +1,11 @@
 import type { ReservoirHttpClient } from "./shared";
 import type { paths } from "@reservoir0x/reservoir-sdk";
 import type { ReservoirToken } from "../../schemas/reservoir";
-import { ReservoirCollectionResponse, ReservoirTokenResponse } from "../../schemas/reservoir";
+import {
+  ReservoirCollectionResponse,
+  ReservoirCollectionMetadataResponse,
+  ReservoirTokenResponse,
+} from "../../schemas/reservoir";
 import logger from "../../utils/logger";
 import { ReservoirConfig } from "../../utils/constants";
 import { SupportedChain } from "src/env";
@@ -81,6 +85,34 @@ export class ReservoirHttpApi {
       });
 
       return data as ReservoirCollectionResponse;
+    }
+  }
+
+  async requestCollectionsV7(
+    chain: SupportedChain,
+    collectionId: string
+  ): Promise<ReservoirCollectionMetadataResponse> {
+    const data = await this.ReservoirHttpClient.makeRequest(
+      "collections/v7",
+      {
+        searchParams: {
+          id: collectionId,
+        },
+      },
+      { chain }
+    );
+
+    const parsed = ReservoirCollectionMetadataResponse.safeParse(data);
+
+    if (parsed.success) {
+      return parsed.data;
+    } else {
+      console.error("ReservoirCollectionMetadataResponse parse error", {
+        data,
+        error: parsed.error,
+      });
+
+      return data as ReservoirCollectionMetadataResponse;
     }
   }
 

@@ -58,3 +58,78 @@ export const ReservoirTokenResponse = z.object({
   continuation: z.string().nullable(),
 });
 export type ReservoirTokenResponse = z.infer<typeof ReservoirTokenResponse>;
+
+export const ReservoirSale = z.object({
+  id: z.string().nullable(),
+  sourceDomain: z.string().nullable(),
+  price: z
+    .object({
+      currency: z.object({
+        contract: z.string().nullable(),
+        name: z.string().nullable(),
+        symbol: z.string().nullable(),
+        decimals: z.number().nullable(),
+      }),
+      amount: z
+        .object({
+          raw: z.string().nullable(),
+          decimal: z.number().nullable(),
+          usd: z.number().nullable(),
+          native: z.number().nullable(),
+        })
+        .optional()
+        .nullable(),
+      netAmount: z
+        .object({
+          raw: z.string().nullable(),
+          decimal: z.number().nullable(),
+          usd: z.number().nullable(),
+          native: z.number().nullable(),
+        })
+        .optional()
+        .nullable(),
+      maker: z.string().optional().nullable(),
+      validFrom: z.number().optional().nullable(),
+    })
+    .nullable(),
+  maker: z.string().nullable(),
+  validFrom: z.number().nullable(),
+  token: z
+    .object({
+      contract: z.string().nullable(),
+      tokenId: z.string().nullable(),
+      name: z.string().nullable(),
+      image: z.string().nullable(),
+    })
+    .optional()
+    .nullable(),
+});
+
+export const ReservoirStatics = z.object({
+  "1day": z.number().optional().nullable(),
+  "7day": z.number().optional().nullable(),
+  "30day": z.number().optional().nullable(),
+  allTime: z.number().optional().nullable(),
+});
+
+// https://docs.reservoir.tools/reference/getcollectionsv7
+export const ReservoirCollectionMetadata = z.object({
+  contractKind: z.enum(["erc721", "erc1155"]),
+  name: z.string().nullable(),
+  symbol: z.string().nullable(),
+  description: z.string().nullable(),
+  floorAsk: ReservoirSale.optional().nullable(),
+  topBid: ReservoirSale.optional().nullable(),
+  rank: ReservoirStatics.optional().nullable(),
+  volume: ReservoirStatics.optional().nullable(),
+  volumeChange: ReservoirStatics.optional().nullable(),
+  floorSale: ReservoirStatics.optional().nullable(),
+  floorSaleChange: ReservoirStatics.optional().nullable(),
+  collectionBidSupported: z.boolean().optional().nullable(),
+});
+export type ReservoirCollectionMetadata = z.infer<typeof ReservoirCollectionMetadata>;
+
+export const ReservoirCollectionMetadataResponse = z.object({
+  collections: z.array(ReservoirCollectionMetadata),
+});
+export type ReservoirCollectionMetadataResponse = z.infer<typeof ReservoirCollectionMetadataResponse>;

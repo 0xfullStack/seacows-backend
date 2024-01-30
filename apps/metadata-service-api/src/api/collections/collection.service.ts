@@ -108,10 +108,15 @@ const getTrendingCollections = async (chain: SupportedChain) => {
   return external.reservoirApi.requestMultipleCollections(chain, "30DayVolume", 12);
 };
 
+const getCollectionMetadata = async (chain: SupportedChain, collectionAddress: string) => {
+  return external.reservoirApi.requestCollectionsV7(chain, collectionAddress);
+};
+
 export default {
   getCollection,
   searchCollections,
   getCollectionTokens,
   getCollectionAllTokens,
   getTrendingCollections,
+  getCollectionMetadata,
 };

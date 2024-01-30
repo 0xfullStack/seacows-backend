@@ -10,8 +10,30 @@ env:
   ECR_REPOSITORY: seacows-backend
 
 jobs:
-  ci_cd:
-    name: build docker image
+  db_deploy:
+    name: prisma migrate deploy
+    runs-on: ip-10-0-2-92
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: |
+          yarn workspace @yolominds/metadata-service-api install
+          yarn workspace @yolominds/metadata-service-api run build
+      - name: Apply all pending migrations to the database
+        run: |
+          yarn workspace @yolominds/metadata-service-api run db:migrate
+          yarn workspace @yolominds/metadata-service-api run db:seed
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+
+
+  backend_deploy:
+    needs: db_deploy
+    name: build and deploy
     runs-on: ip-10-0-2-92
     environment: production
 

@@ -28,9 +28,6 @@ jobs:
           yarn workspace @yolominds/metadata-service-api run db:seed
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-
-
   backend_deploy:
     needs: db_deploy
     name: build and deploy

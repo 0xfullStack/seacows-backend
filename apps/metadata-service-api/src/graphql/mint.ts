@@ -11,6 +11,7 @@ export interface MintInput extends PaginatedInput {
   chain: SupportedChain;
   where: {
     collection?: string;
+    origin?: string;
   };
 }
 
@@ -62,6 +63,7 @@ export const getMints = async (
     {
       where: {
         collection: where.collection,
+        origin: where.origin,
       },
       skip,
       first,

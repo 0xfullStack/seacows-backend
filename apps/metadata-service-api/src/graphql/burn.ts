@@ -11,6 +11,7 @@ export interface BurnInput extends PaginatedInput {
   chain: SupportedChain;
   where: {
     collection?: string;
+    origin?: string;
   };
 }
 
@@ -63,6 +64,7 @@ export const getBurns = async (
     {
       where: {
         collection: where.collection,
+        origin: where.origin,
       },
       skip,
       first,

@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## 1.10.0 (2024-01-30)
 
-
 ### Features
 
-* collection metadata and statistics ([#35](https://github.com/yolominds/seacows-backend/issues/35)) ([658831f](https://github.com/yolominds/seacows-backend/commit/658831f17cd0b6c1aec222dce5d3a18144ca51df))
+- collection metadata and statistics ([#35](https://github.com/yolominds/seacows-backend/issues/35)) ([658831f](https://github.com/yolominds/seacows-backend/commit/658831f17cd0b6c1aec222dce5d3a18144ca51df))
 
 ### 1.9.1 (2023-12-31)
 

@@ -21,36 +21,42 @@ export const GetPoolSwapsArgs = z.object({
   first: z.number().int().min(1).optional(),
   skip: z.number().int().min(0).optional(),
   collection: EthAddress.optional(),
+  origin: z.string().optional(),
 });
 
 export interface GetPoolSwapsArgs {
   first?: number;
   skip?: number;
   collection?: string;
+  origin?: string;
 }
 
 export const GetPoolMintsArgs = z.object({
   first: z.number().int().min(1).optional(),
   skip: z.number().int().min(0).optional(),
   collection: EthAddress.optional(),
+  origin: z.string().optional(),
 });
 
 export interface GetPoolMintsArgs {
   first?: number;
   skip?: number;
   collection?: string;
+  origin?: string;
 }
 
 export const GetPoolBurnsArgs = z.object({
   first: z.number().int().min(1).optional(),
   skip: z.number().int().min(0).optional(),
   collection: EthAddress.optional(),
+  origin: z.string().optional(),
 });
 
 export interface GetPoolBurnsArgs {
   first?: number;
   skip?: number;
   collection?: string;
+  origin?: string;
 }
 
 export const GetPositionArgs = z.object({

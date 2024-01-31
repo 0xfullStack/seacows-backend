@@ -53,7 +53,7 @@ export class SubGraphController extends BaseController {
   public async getPoolSwaps(@Path("chain") chain: SupportedChain, @Queries() params: GetPoolSwapsArgs) {
     this.validateChain(chain);
     GetPoolSwapsArgs.parse(params);
-    const where = { first: params.first, skip: params.skip, collection: params.collection };
+    const where = { first: params.first, skip: params.skip, collection: params.collection, origin: params.origin };
     const response = await getSwaps({ first: params.first, skip: params.skip, chain, where });
 
     return response;
@@ -63,7 +63,7 @@ export class SubGraphController extends BaseController {
   public async getPoolMints(@Path("chain") chain: SupportedChain, @Queries() params: GetPoolMintsArgs) {
     this.validateChain(chain);
     GetPoolMintsArgs.parse(params);
-    const where = { first: params.first, skip: params.skip, collection: params.collection };
+    const where = { first: params.first, skip: params.skip, collection: params.collection, origin: params.origin };
     const response = await getMints({ first: params.first, skip: params.skip, chain, where });
 
     return response;
@@ -73,7 +73,7 @@ export class SubGraphController extends BaseController {
   public async getPoolWithdraw(@Path("chain") chain: SupportedChain, @Queries() params: GetPoolBurnsArgs) {
     this.validateChain(chain);
     GetPoolBurnsArgs.parse(params);
-    const where = { first: params.first, skip: params.skip, collection: params.collection };
+    const where = { first: params.first, skip: params.skip, collection: params.collection, origin: params.origin };
     const response = await getBurns({ first: params.first, skip: params.skip, chain, where });
 
     return response;

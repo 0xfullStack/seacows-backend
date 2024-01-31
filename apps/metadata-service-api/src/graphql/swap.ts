@@ -11,6 +11,7 @@ interface SwapInput extends PaginatedInput {
   chain: SupportedChain;
   where: {
     collection?: string;
+    origin?: string;
   };
 }
 
@@ -71,6 +72,7 @@ export const getSwaps = async (
     {
       where: {
         collection: where.collection,
+        origin: where.origin,
       },
       skip,
       first,

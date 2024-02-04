@@ -13,3 +13,13 @@ export interface GetUserTokensArgs {
   collection?: string;
   continuation?: string;
 }
+
+export const GetUserCollectionsArgs = z.object({
+  collection: EthAddress.optional(),
+  name: z.string().optional(),
+});
+
+export interface GetUserCollectionsArgs {
+  collection?: string;
+  name?: string;
+}

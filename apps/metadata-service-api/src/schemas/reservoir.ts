@@ -125,11 +125,63 @@ export const ReservoirCollectionMetadata = z.object({
   volumeChange: ReservoirStatics.optional().nullable(),
   floorSale: ReservoirStatics.optional().nullable(),
   floorSaleChange: ReservoirStatics.optional().nullable(),
-  collectionBidSupported: z.boolean().optional().nullable(),
 });
+
 export type ReservoirCollectionMetadata = z.infer<typeof ReservoirCollectionMetadata>;
 
 export const ReservoirCollectionMetadataResponse = z.object({
   collections: z.array(ReservoirCollectionMetadata),
 });
 export type ReservoirCollectionMetadataResponse = z.infer<typeof ReservoirCollectionMetadataResponse>;
+
+// https://docs.reservoir.tools/reference/getusersusercollectionsv4
+export const ReservoirUserCollection = z.object({
+  id: z.string().nullable(),
+  slug: z.string().nullable(),
+  name: z.string().nullable(),
+  image: z.string().nullable(),
+  isSpam: z.boolean().nullable(),
+  banner: z.string().nullable(),
+  twitterUrl: z.string().nullable(),
+  discordUrl: z.string().nullable(),
+  externalUrl: z.string().nullable(),
+  twitterUsername: z.string().nullable(),
+  openseaVerificationStatus: z.string().nullable(),
+  description: z.string().nullable(),
+  metadataDisabled: z.boolean().nullable(),
+  sampleImages: z.array(z.string()).nullable(),
+  floorAskPrice: z.object({
+    currency: z.object({
+      contract: z.string().nullable(),
+      name: z.string().nullable(),
+      symbol: z.string().nullable(),
+      decimals: z.number().nullable(),
+    }),
+    amount: z
+      .object({
+        raw: z.string().nullable(),
+        decimal: z.number().nullable(),
+        usd: z.number().nullable(),
+        native: z.number().nullable(),
+      })
+      .optional()
+      .nullable(),
+  }),
+  rank: ReservoirStatics.optional().nullable(),
+  volume: ReservoirStatics.optional().nullable(),
+  volumeChange: ReservoirStatics.optional().nullable(),
+  floorSale: ReservoirStatics.optional().nullable(),
+  floorSaleChange: ReservoirStatics.optional().nullable(),
+});
+
+export const ReservoirUserCollectionOwnership = z.object({
+  tokenCount: z.string().nullable(),
+  totalValue: z.number().nullable(),
+});
+export const ReservoirUserCollectionResponse = z.object({
+  collections: z.object({
+    collection: ReservoirUserCollection.nullable(),
+    ownership: ReservoirUserCollectionOwnership.nullable(),
+  }),
+});
+export type ReservoirUserCollectionResponse = z.infer<typeof ReservoirUserCollectionResponse>;

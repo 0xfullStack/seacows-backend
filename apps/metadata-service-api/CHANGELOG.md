@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## 1.11.0 (2024-01-31)
 
-
 ### Features
 
-* filter with nft origin ([#38](https://github.com/yolominds/seacows-backend/issues/38)) ([eb1776c](https://github.com/yolominds/seacows-backend/commit/eb1776c983e3debed604d86f3da29bf98ad4cbfb))
+- filter with nft origin ([#38](https://github.com/yolominds/seacows-backend/issues/38)) ([eb1776c](https://github.com/yolominds/seacows-backend/commit/eb1776c983e3debed604d86f3da29bf98ad4cbfb))
 
 ## 1.10.0 (2024-01-30)
 

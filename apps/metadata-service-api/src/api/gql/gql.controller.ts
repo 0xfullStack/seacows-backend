@@ -5,7 +5,7 @@ import { getPoolsData, getAmmPoolNfts } from "src/graphql/amm";
 import { getSwaps } from "src/graphql/swap";
 import { getMints } from "src/graphql/mint";
 import { getBurns } from "src/graphql/burn";
-import { getAMMPositions, getOwnerPositions } from "src/graphql/position";
+import { getAMMPositions, getOwnerPositions, getTotalAMMPositions, getTotalOwnerPositions } from "src/graphql/position";
 import { getSpeedBumpPosition } from "src/graphql/speedBumpPosition";
 
 import {
@@ -83,9 +83,19 @@ export class SubGraphController extends BaseController {
   public async getAMMPositions(@Path("chain") chain: SupportedChain, @Queries() params: GetPositionArgs) {
     this.validateChain(chain);
     GetPositionArgs.parse(params);
-    const where = { first: params.first, skip: params.skip, owner: params.owner, slots: params.slots };
-    const response = await getAMMPositions({ first: params.first, skip: params.skip, chain, where });
-
+    const first = params.first || 1000;
+    const skip = params.skip || 0;
+    const where = { first, skip, owner: params.owner, slots: params.slots };
+    const [total, data] = await Promise.all([
+      getTotalAMMPositions({ chain, where }), // total amm
+      getAMMPositions({ first, skip, chain, where }),
+    ]);
+    const response = {
+      total,
+      first,
+      skip,
+      data,
+    };
     return response;
   }
 
@@ -93,9 +103,19 @@ export class SubGraphController extends BaseController {
   public async getOwnerPositions(@Path("chain") chain: SupportedChain, @Queries() params: GetPositionArgs) {
     this.validateChain(chain);
     GetPositionArgs.parse(params);
-    const where = { first: params.first, skip: params.skip, owner: params.owner, ids: params.ids };
-    const response = await getOwnerPositions({ first: params.first, skip: params.skip, chain, where });
-
+    const first = params.first || 1000;
+    const skip = params.skip || 0;
+    const where = { first, skip, owner: params.owner, ids: params.ids };
+    const [total, data] = await Promise.all([
+      getTotalOwnerPositions({ chain, where }),
+      await getOwnerPositions({ first, skip, chain, where }),
+    ]);
+    const response = {
+      total,
+      first,
+      skip,
+      data,
+    };
     return response;
   }
 

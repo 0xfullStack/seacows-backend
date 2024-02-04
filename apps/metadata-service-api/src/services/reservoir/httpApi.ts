@@ -116,6 +116,26 @@ export class ReservoirHttpApi {
     }
   }
 
+  async requestUserCollections(
+    chain: SupportedChain,
+    account: string,
+    collection?: string,
+    name?: string
+  ): Promise<UserTokensResponse> {
+    const data = await this.ReservoirHttpClient.makeRequest<UserTokensResponse>(
+      `users/${account}/collections/v4`,
+      {
+        searchParams: {
+          collection,
+          name,
+        },
+      },
+      { chain }
+    );
+
+    return data;
+  }
+
   async requestCollectionAllAttributes(
     chain: SupportedChain,
     collection: string

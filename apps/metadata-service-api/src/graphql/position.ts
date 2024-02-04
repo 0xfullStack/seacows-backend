@@ -106,8 +106,33 @@ export const getAMMPositions = async (
   return res.positions;
 };
 
-export const getOwnerPositions = async (
+export const getTotalAMMPositions = async (
   { chain, where }: PoolInput,
+  requestHeaders?: HeadersInit
+): Promise<number> => {
+  const query = gql`
+    query GetTotalAMMPositions($where: Position_filter) {
+      positions(where: $where) {
+        id
+      }
+    }
+  `;
+  const res = await graphql<{ positions: Position[] }>(
+    chain,
+    query,
+    {
+      where: {
+        owner: where.owner,
+        slot_in: where.slots,
+      },
+    },
+    requestHeaders
+  );
+  return res.positions.length;
+};
+
+export const getOwnerPositions = async (
+  { skip = 0, first = 1000, chain, where }: PoolInput,
   requestHeaders?: HeadersInit
 ): Promise<Position[]> => {
   const query = gql`
@@ -136,8 +161,35 @@ export const getOwnerPositions = async (
         owner: where.owner,
         slot_in: where.slots,
       },
+      skip,
+      first,
     },
     requestHeaders
   );
   return res.positions;
+};
+
+export const getTotalOwnerPositions = async (
+  { chain, where }: PoolInput,
+  requestHeaders?: HeadersInit
+): Promise<number> => {
+  const query = gql`
+    query getOwnerPositions($where: Position_filter) {
+      positions(where: $where) {
+        id
+      }
+    }
+  `;
+  const res = await graphql<{ positions: Position[] }>(
+    chain,
+    query,
+    {
+      where: {
+        owner: where.owner,
+        slot_in: where.slots,
+      },
+    },
+    requestHeaders
+  );
+  return res.positions.length;
 };

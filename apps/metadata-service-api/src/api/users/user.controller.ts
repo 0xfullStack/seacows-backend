@@ -1,6 +1,6 @@
 import { Get, Path, Route, Queries, Tags } from "tsoa";
 import { EthAddress } from "../../schemas/common";
-import { GetUserTokensArgs } from "./user.schema";
+import { GetUserTokensArgs, GetUserCollectionsArgs } from "./user.schema";
 import UserService from "./user.service";
 import { BaseController } from "../baseController";
 import { SupportedChain } from "src/env";
@@ -24,6 +24,28 @@ export class UserController extends BaseController {
     const args = GetUserTokensArgs.parse(params);
 
     const response = await UserService.getUserTokens(chain, account, args.collection, args.continuation);
+
+    return response;
+  }
+
+  /**
+   *
+   * @example userId "0xF296178d553C8Ec21A2fBD2c5dDa8CA9ac905A00"
+   * @example collection "0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63"
+   * @example name "ape"
+   * @returns
+   */
+  @Get("{userId}/collections")
+  public async getUserCollections(
+    @Path("chain") chain: SupportedChain,
+    @Path() userId: string,
+    @Queries() params: GetUserCollectionsArgs
+  ) {
+    this.validateChain(chain);
+    const account = EthAddress.parse(userId);
+    const args = GetUserCollectionsArgs.parse(params);
+
+    const response = await UserService.getUserCollections(chain, account, args.collection, args.name);
 
     return response;
   }

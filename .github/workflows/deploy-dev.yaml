@@ -74,6 +74,7 @@ jobs:
           branch: dev
           tags: true
           github_token: ${{ steps.seacows-bot.outputs.token }}
+          force: true
 
       # Update kubeconfig for deployment
       - uses: actions/checkout@master

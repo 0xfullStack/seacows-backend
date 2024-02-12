@@ -23,6 +23,8 @@ services:
       POSTGRES_DB: seacows_backend
       PGDATA: "/var/lib/postgresql/data"
       POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
+    labels:
+      logging: "promtail"
 
   redis:
     image: redis:6.2-alpine
@@ -32,6 +34,8 @@ services:
     command: redis-server --save 60 1 --loglevel warning
     volumes:
       - "/data/redis:/data"
+    labels:
+      logging: "promtail"
 
   seacows-backend:
     image: seacows-backend:dev
@@ -55,3 +59,5 @@ services:
       CRON_PATTERN: "*/3 * * * * *"
       REDIS_URL: "redis://redis:6379/3"
       LOG_LEVEL: debug
+    labels:
+      logging: "promtail"

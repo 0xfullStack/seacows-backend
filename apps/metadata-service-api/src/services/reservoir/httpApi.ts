@@ -29,15 +29,17 @@ export class ReservoirHttpApi {
     chain: SupportedChain,
     account: string,
     collection?: string,
-    continuation?: string
+    continuation?: string,
+    limit?: number
   ): Promise<UserTokensResponse> {
+    limit = limit || 200;
     const data = await this.ReservoirHttpClient.makeRequest<UserTokensResponse>(
       `users/${account}/tokens/v6`,
       {
         searchParams: {
           collection,
           continuation,
-          limit: 200,
+          limit,
         },
       },
       { chain }

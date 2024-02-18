@@ -13,7 +13,7 @@ services:
   #       - rabbitmq_nodejs
   postgres:
     image: postgres:14
-    container_name: postgres
+    container_name: postgres-seacows-backend
     ports:
       - "127.0.0.1:5432:5432"
     command: ["postgres", "-cshared_preload_libraries=pg_stat_statements", "-cmax_connections=200"]
@@ -28,7 +28,7 @@ services:
 
   redis:
     image: redis:6.2-alpine
-    container_name: redis
+    container_name: redis-seacows-backend
     ports:
       - "6379:6379"
     command: redis-server --save 60 1 --loglevel warning

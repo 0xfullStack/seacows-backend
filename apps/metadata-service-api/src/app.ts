@@ -1,6 +1,7 @@
 import express, { json, urlencoded, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
+import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import { ValidateError } from "tsoa";
 import { ZodError } from "zod";
@@ -15,6 +16,11 @@ export function initApp() {
   app.use(
     urlencoded({
       extended: true,
+    })
+  );
+  app.use(
+    morgan(":method :url :status :res[content-length] - :response-time ms", {
+      stream: { write: (message) => logger.info(message.trim()) },
     })
   );
   app.use(cors());

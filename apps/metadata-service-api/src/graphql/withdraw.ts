@@ -62,7 +62,7 @@ export const getWithdraw = async (
     query,
     {
       where: {
-        collection_in: where.collections,
+        collection_in: where.collections?.map((item) => item.toLowerCase()),
       },
       skip,
       first,

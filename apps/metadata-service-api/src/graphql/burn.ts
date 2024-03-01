@@ -63,8 +63,8 @@ export const getBurns = async (
     query,
     {
       where: {
-        collection: where.collection,
-        origin: where.origin,
+        collection: where.collection?.toLowerCase(),
+        origin: where.origin?.toLowerCase(),
       },
       skip,
       first,

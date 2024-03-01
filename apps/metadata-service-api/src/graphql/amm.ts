@@ -45,7 +45,7 @@ export const getAmmPools = async (
     query,
     {
       where: {
-        collection_in: where?.collections,
+        collection_in: where?.collections?.map((item) => item.toLowerCase()),
       },
       skip,
       first,
@@ -114,8 +114,8 @@ export const getAmmPoolNfts = async (
     query,
     {
       where: {
-        collection: where?.collection,
-        token: where?.token,
+        collection: where?.collection?.toLowerCase(),
+        token: where?.token?.toLowerCase(),
       },
       skip,
       first,
@@ -170,7 +170,7 @@ export const getPoolsData = async (
   if (where?.collections) {
     Object.assign(params, {
       where: {
-        collection_in: where.collections,
+        collection_in: where.collections?.map((item) => item.toLowerCase()),
       },
     });
   }

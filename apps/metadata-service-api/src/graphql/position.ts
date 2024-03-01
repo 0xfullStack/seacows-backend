@@ -95,7 +95,7 @@ export const getAMMPositions = async (
     query,
     {
       where: {
-        owner: where.owner,
+        owner: where.owner.toLowerCase(),
         slot_in: where.slots,
       },
       skip,

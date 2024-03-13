@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/yolominds/seacows-backend/compare/@yolominds/metadata-service-api@1.11.1...@yolominds/metadata-service-api@1.12.0) (2024-03-13)
+
+
+### Features
+
+* collection and origin should be lowercase ([#44](https://github.com/yolominds/seacows-backend/issues/44)) ([702a2d1](https://github.com/yolominds/seacows-backend/commit/702a2d19c14887d157a89e38c8b7feda9fb6d4fb))
+* ignore .env ([#43](https://github.com/yolominds/seacows-backend/issues/43)) ([5f7ba94](https://github.com/yolominds/seacows-backend/commit/5f7ba9497ddff971d388dec334321da38c91621e))
+* verify the collection address ([#41](https://github.com/yolominds/seacows-backend/issues/41)) ([8acb9a1](https://github.com/yolominds/seacows-backend/commit/8acb9a1e6be586e3cd92379aa279e01be6d85a1e))
+
+
+### Bug Fixes
+
+* token lastFlagUpdate would be null ([#45](https://github.com/yolominds/seacows-backend/issues/45)) ([73f0493](https://github.com/yolominds/seacows-backend/commit/73f0493856c32bf1498c92b971772118d0521725))
+
 ### 1.11.1 (2024-02-12)
 
 ## 1.11.0 (2024-01-31)

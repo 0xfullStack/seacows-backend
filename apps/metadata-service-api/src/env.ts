@@ -26,6 +26,7 @@ export const AppEnv = z
     REDIS_URL: z.string(),
     DATABASE_URL: z.string(),
     MORALIS_API_KEY: z.string(),
+    SENTRY_DSN: z.string().optional(),
   })
   .transform((x) => ({
     ...x,
@@ -69,6 +70,7 @@ export function getAppEnv(processEnv: unknown = process.env): AppEnv {
         sepolia: env.RESERVIOR_API_KEYS.sepolia.length,
       },
     },
+    sentryDSN: env.SENTRY_DSN?.slice(0, 4) + "...",
   });
 
   return env;

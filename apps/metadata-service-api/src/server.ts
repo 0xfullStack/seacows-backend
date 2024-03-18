@@ -16,7 +16,7 @@ async function main() {
   await initQueues(redis);
   await initTasks(env.CHAINS, env.CRON_PATTERN);
 
-  const app = initApp();
+  const app = initApp(env.SENTRY_DSN);
   const server = createServer(app);
   initWs(server, redis);
 
@@ -24,5 +24,5 @@ async function main() {
 }
 
 main().catch((error: Error) => {
-  logger.fatal("Backend server failed:", { error: error.message });
+  logger.fatal("Backend server failed:", { error: error.message, stack: error.stack });
 });

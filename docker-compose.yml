@@ -26,6 +26,8 @@ services:
     volumes:
       - /data/postgres:/var/lib/postgresql/data
     labels:
+      environment: dev
+      app: seacows_backend
       logging: "promtail"
 
   redis:
@@ -37,6 +39,8 @@ services:
     volumes:
       - "/data/redis:/data"
     labels:
+      environment: dev
+      app: seacows_backend
       logging: "promtail"
 
   seacows-backend:
@@ -61,5 +65,8 @@ services:
       CRON_PATTERN: "*/3 * * * * *"
       REDIS_URL: "redis://redis:6379/3"
       LOG_LEVEL: debug
+      SENTRY_DSN: "https://27d179e4c9c35c91b45d4599f7ea03d1@sentry.seacows.io/2"
     labels:
+      environment: dev
+      app: seacows_backend
       logging: "promtail"

@@ -13,14 +13,17 @@ import {
   Queries,
   Tags,
   OperationId,
+  BodyProp,
 } from "tsoa";
-import { EthAddress, TokenIds } from "../../schemas/common";
+import { EthAddress, TokenIds, TokenId } from "src/schemas/common";
 import { SearchCollectionName } from "./collection.schema";
 import CollectionService from "./collection.service";
 import { SupportedChain } from "src/env";
 import { BaseController } from "../baseController";
 import { getAmmPools } from "src/graphql/amm";
 import { ReservoirCollectionMetadata } from "src/schemas/reservoir";
+import { state } from "src/redis";
+import { LockNFTDto, UnlockNFTDto } from "./collection.dto";
 
 @Route(":chain/collections")
 @Tags("collection")
@@ -145,5 +148,68 @@ export class CollectionController extends BaseController {
     } as {
       collection: ReservoirCollectionMetadata;
     };
+  }
+
+  /**
+   * lock the nft
+   * @example collectionId "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+   * @example tokenId "1"
+   * @returns is lock succeed
+   */
+  @Post("{collectionId}/tokens/{tokenId}/lock")
+  public async lockNFT(
+    @Path("chain") chain: SupportedChain,
+    @Path() collectionId: string,
+    @Path() tokenId: string,
+    @Body() dto: LockNFTDto
+  ) {
+    this.validateChain(chain);
+    const collection = EthAddress.parse(collectionId);
+    TokenId.parse(tokenId);
+    LockNFTDto.parse(dto);
+    const userId = EthAddress.parse(dto.userId);
+
+    await state.lockNFT(chain, collection, tokenId, userId);
+    return true;
+  }
+
+  /**
+   * unlock the nft
+   * @example collectionId "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+   * @example tokenId "1"
+   * @returns is unlock succeed
+   */
+  @Post("{collectionId}/tokens/{tokenId}/unlock")
+  public async unlockNFT(
+    @Path("chain") chain: SupportedChain,
+    @Path() collectionId: string,
+    @Path() tokenId: string,
+    @Body() dto: UnlockNFTDto
+  ) {
+    const collection = EthAddress.parse(collectionId);
+    TokenId.parse(tokenId);
+    LockNFTDto.parse(dto);
+    const userId = EthAddress.parse(dto.userId);
+
+    await state.unlockNFT(chain, collection, tokenId, userId);
+    return true;
+  }
+
+  /**
+   * get the nft state
+   * @example collectionId "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+   * @example tokenId "1"
+   * @returns the nft locked status
+   */
+  @Get("{collectionId}/tokens/{tokenId}/state")
+  public async getNFTState(
+    @Path("chain") chain: SupportedChain,
+    @Path() collectionId: string,
+    @Path() tokenId: string
+  ) {
+    this.validateChain(chain);
+    const collection = EthAddress.parse(collectionId);
+
+    return await state.getNFTLocker(chain, collection, tokenId);
   }
 }

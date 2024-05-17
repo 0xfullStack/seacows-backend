@@ -18,10 +18,28 @@ interface PoolInput extends PaginatedInput {
 
 export interface AmmPool {
   id: string;
+  fee: string;
+  slot: string;
+  liquidity: string;
+  price: string;
+  createdAt: string;
+  totalValueLocked: string;
+  totalFee: string;
   collection: {
     id: string;
     name: string;
   };
+  token: {
+    id: string;
+    name: string;
+    symbol: string;
+    decimals: string;
+  };
+  nfts: {
+    id: string;
+    tokenId: string;
+    isLocked: boolean;
+  }[];
 }
 
 export const getAmmPools = async (

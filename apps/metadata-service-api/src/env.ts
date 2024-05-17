@@ -22,6 +22,7 @@ export const SupportedSubgraphEndpoint: Record<SupportedChain, string> = {
 export const AppEnv = z
   .object({
     CHAINS: z.string().transform((str) => str.split(",")),
+    STATE_LOCK_EXPIRE: z.coerce.number().min(0),
     CRON_PATTERN: z.string(),
     REDIS_URL: z.string(),
     DATABASE_URL: z.string(),

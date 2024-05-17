@@ -1,5 +1,7 @@
 import { Get, Path, Route, Queries, Tags } from "tsoa";
 import { BaseController } from "../baseController";
+
+import { state } from "src/redis";
 import { SupportedChain } from "src/env";
 import { getPoolsData, getAmmPoolNfts } from "src/graphql/amm";
 import { getSwaps } from "src/graphql/swap";
@@ -16,6 +18,7 @@ import {
   GetPositionArgs,
   GetSpeedBumpPositionArgs,
 } from "./gql.schema";
+import { uniq } from "lodash";
 
 @Route(":chain/proxy")
 @Tags("SubGraph")
@@ -46,6 +49,35 @@ export class SubGraphController extends BaseController {
     const where = { first: params.first, skip: params.skip, collection: params.collection, token: params.token };
     const response = await getAmmPoolNfts({ chain, where });
 
+    const keys: string[] = [];
+    response.forEach((pool) => {
+      pool.nfts?.forEach((nft) => {
+        const id = nft.id; // "id": "0xb2ece12224a403720f7cc4d63c033eec7281049a-51"
+        const [contract, tokenId] = id.split("-");
+        if (!contract || !tokenId) return;
+
+        keys.push(id);
+      });
+    });
+    const states = await Promise.all(
+      uniq(keys).map(async (key) => {
+        const [contract, tokenId] = key.split("-");
+        const locker = await state.getNFTLocker(chain, contract, tokenId);
+        const isLocked = !!locker;
+        return { key, isLocked };
+      })
+    );
+    const stateMap = states.reduce<Record<string, boolean>>(
+      (acc, { key, isLocked }) => Object.assign(acc, { [key]: isLocked }),
+      {}
+    );
+
+    response.forEach((pool) => {
+      pool.nfts?.forEach((nft) => {
+        const id = nft.id; // "id": "0xb2ece12224a403720f7cc4d63c033eec7281049a-51"
+        nft.isLocked = !!stateMap[id];
+      });
+    });
     return response;
   }
 

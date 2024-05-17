@@ -36,3 +36,15 @@ export const TokenIds = z
     },
     { message: "Provided ids is not an array of number string" }
   );
+
+export const TokenId = z.number({ coerce: true }).refine(
+  (id) => {
+    try {
+      BigNumber.from(id);
+    } catch {
+      return false;
+    }
+    return true;
+  },
+  { message: "Provided id is not a number string" }
+);
